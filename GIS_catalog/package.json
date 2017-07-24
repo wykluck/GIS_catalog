@@ -1,0 +1,19 @@
+{
+  "name": "gis_catalog",
+  "version": "0.0.0",
+  "description": "GIS_catalog",
+  "main": "app.js",
+  "author": {
+    "name": "ywang",
+    "email": "wykluck@gmail.com"
+  },
+  "scripts": {
+    "compile": "node-gyp rebuild",
+    "start": "node app.js"
+  },
+  "gypfile": true,
+  "dependencies": {
+    "bindings": "^1.2.1",
+    "nan": "^2.6.2"
+  }
+}

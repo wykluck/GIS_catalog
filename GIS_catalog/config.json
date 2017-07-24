@@ -1,0 +1,4 @@
+﻿{
+  "catalogBaseDirs": [ "c:\\Datasets" ],
+  "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ]
+}
