@@ -8,12 +8,13 @@
 static moodycamel::ConcurrentQueue<std::string> s_datasetPathQueue;
 static const int threadNum = 16;
 static std::vector<std::thread> threadVec;
-enum class CrawlStatus{
+enum class QueueProcessStatus{
 	NotStarted,
-	Started,
-	Finished
+	Processing,
+	CrawlFinished,
+	ProcessingLeftover,
 };
-static CrawlStatus crawlStatus = CrawlStatus::NotStarted;
+static QueueProcessStatus crawlStatus = QueueProcessStatus::NotStarted;
 static std::mutex outputMutex;
 
 NAN_METHOD(GdalInit) {
@@ -35,8 +36,8 @@ NAN_METHOD(RetrieveDatasetInfo) {
 	v8::String::Utf8Value utf8Path(info[0]);
 	s_datasetPathQueue.enqueue(std::string(*utf8Path));
 	
-	if (crawlStatus == CrawlStatus::NotStarted)
-		crawlStatus = CrawlStatus::Started;
+	if (crawlStatus == QueueProcessStatus::NotStarted)
+		crawlStatus = QueueProcessStatus::Processing;
 	if (threadVec.size() < threadNum)
 	{
 		threadVec.push_back(std::thread([&]() {
@@ -76,7 +77,11 @@ NAN_METHOD(RetrieveDatasetInfo) {
 				}
 				else
 				{
-					if (crawlStatus == CrawlStatus::Finished)
+					if (crawlStatus == QueueProcessStatus::CrawlFinished)
+					{
+						crawlStatus = QueueProcessStatus::ProcessingLeftover;
+					}
+					else if (crawlStatus == QueueProcessStatus::ProcessingLeftover)
 					{
 						return;
 					}
@@ -91,7 +96,9 @@ NAN_METHOD(RetrieveDatasetInfo) {
 }
 
 NAN_METHOD(FinishCrawl) {
-	crawlStatus = CrawlStatus::Finished;
+	crawlStatus = QueueProcessStatus::CrawlFinished;
+	for (auto& th : threadVec)
+		th.join();
 	return;
 }
 

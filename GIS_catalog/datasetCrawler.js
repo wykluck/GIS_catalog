@@ -33,7 +33,8 @@ var traverseDirectory = (dirname, formatExtensionSet, callback) => {
             if (stat && stat.isDirectory()) {
                 traverseDirectory(file, formatExtensionSet, callback);
             } else {
-                if (stat.isFile() && formatExtensionSet.has(path.extname(file))) {
+                let lowerExtName = path.extname(file).toLowerCase();
+                if (stat.isFile() && formatExtensionSet.has(lowerExtName)) {
                     callback(file);
                 }
             }
