@@ -1,2 +1,6 @@
 
 *.tlog
+**/build
+**/node_modules
+**/.vs
+*.VC*

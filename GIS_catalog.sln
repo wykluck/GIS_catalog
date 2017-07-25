@@ -5,10 +5,10 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "GIS_catalog", "GIS_catalog\GIS_catalog.njsproj", "{F6645A3F-CF71-4910-880D-B0520933BAD8}"
 	ProjectSection(ProjectDependencies) = postProject
-		{045C4440-15E0-8CB6-77BC-65959761C3A2} = {045C4440-15E0-8CB6-77BC-65959761C3A2}
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741} = {85DD0D6B-8AEA-9A32-6295-019AE4DBB741}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addon", "GIS_catalog\build\addon.vcxproj", "{045C4440-15E0-8CB6-77BC-65959761C3A2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "addon", "GIS_catalog\build\addon.vcxproj", "{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,12 +26,12 @@ Global
 		{F6645A3F-CF71-4910-880D-B0520933BAD8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F6645A3F-CF71-4910-880D-B0520933BAD8}.Release|x64.ActiveCfg = Release|Any CPU
 		{F6645A3F-CF71-4910-880D-B0520933BAD8}.Release|x64.Build.0 = Release|Any CPU
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Debug|x64.ActiveCfg = Debug|x64
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Debug|x64.Build.0 = Debug|x64
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Release|Any CPU.ActiveCfg = Release|x64
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Release|x64.ActiveCfg = Release|x64
-		{045C4440-15E0-8CB6-77BC-65959761C3A2}.Release|x64.Build.0 = Release|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Debug|x64.ActiveCfg = Debug|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Debug|x64.Build.0 = Debug|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Release|Any CPU.ActiveCfg = Release|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Release|x64.ActiveCfg = Release|x64
+		{85DD0D6B-8AEA-9A32-6295-019AE4DBB741}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
