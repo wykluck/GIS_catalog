@@ -1,12 +1,20 @@
 ﻿#include <nan.h>
 #include <thread>
 #include <mutex>
+#include <chrono>
+#include <experimental/filesystem>
 #include "gdal.h"
 #include "gdal_priv.h"
 #include "concurrentqueue.h"
+#include "gdal_translate.h"
 
 static moodycamel::ConcurrentQueue<std::string> s_datasetPathQueue;
+#ifdef DEBUG
+static const int threadNum = 1;
+#else
 static const int threadNum = 16;
+#endif
+static const float thumbnailMaxWidth = 320.0;
 static std::vector<std::thread> threadVec;
 enum class QueueProcessStatus{
 	NotStarted,
@@ -23,6 +31,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DRIVER_PATH", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\gdalplugins");
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
+	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 }
 
 
@@ -46,7 +55,7 @@ NAN_METHOD(RetrieveDatasetInfo) {
 			{
 				if (s_datasetPathQueue.try_dequeue(datasetPath))
 				{
-					GDALDataset *poDataset = static_cast<GDALDataset *>(GDALOpen(datasetPath.c_str(), GA_ReadOnly));
+					GDALDataset *poDataset = static_cast<GDALDataset *>(GDALOpenShared(datasetPath.c_str(), GA_ReadOnly));
 					if (poDataset != NULL)
 					{
 						auto width = poDataset->GetRasterXSize();
@@ -64,8 +73,16 @@ NAN_METHOD(RetrieveDatasetInfo) {
 						{
 							printf("\n");
 						}
-						GDALClose(poDataset);
+						
 						outputMutex.unlock();
+						//generate thumbnails
+						std::string thumbnailPath = "c:\\datasets\\thumbnail\\";
+						thumbnailPath += std::experimental::filesystem::path(datasetPath).stem().string();
+						thumbnailPath.append(".png");
+						int thumbnailRatioScaleRatio = ceil(width / thumbnailMaxWidth);
+						gdal_translate((GDALDatasetH)poDataset, width / thumbnailRatioScaleRatio, height / thumbnailRatioScaleRatio, thumbnailPath);
+						GDALClose((GDALDatasetH)poDataset);
+						poDataset = NULL;
 					}
 					else
 					{
@@ -99,6 +116,7 @@ NAN_METHOD(FinishCrawl) {
 	crawlStatus = QueueProcessStatus::CrawlFinished;
 	for (auto& th : threadVec)
 		th.join();
+	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	return;
 }
 

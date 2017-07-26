@@ -3,7 +3,9 @@
     {
       "target_name": "addon",
       "sources": [
-        "main.cpp"
+        "main.cpp",
+        "commonutils.cpp",
+        "gdal_translate.cpp"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")",

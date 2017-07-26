@@ -1,7 +1,6 @@
 ﻿{
   "catalogBaseDirs": [
-    "c:\\Datasets",
-    "\\\\tea\\H\\Datasets"
+    "c:\\Datasets"
   ],
   "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ]
 }
