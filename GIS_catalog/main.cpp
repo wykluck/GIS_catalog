@@ -7,6 +7,8 @@
 #include "gdal_priv.h"
 #include "concurrentqueue.h"
 #include "gdal_translate.h"
+#include "DatasetStruct.h"
+#include "CatalogDB.h"
 
 static moodycamel::ConcurrentQueue<std::string> s_datasetPathQueue;
 #ifdef DEBUG
@@ -24,6 +26,7 @@ enum class QueueProcessStatus{
 };
 static QueueProcessStatus crawlStatus = QueueProcessStatus::NotStarted;
 static std::mutex outputMutex;
+static CatalogDB *s_catalogDB;
 
 NAN_METHOD(GdalInit) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
@@ -31,6 +34,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DRIVER_PATH", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\gdalplugins");
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
+	s_catalogDB = new CatalogDB();
 	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 }
 
@@ -58,14 +62,19 @@ NAN_METHOD(RetrieveDatasetInfo) {
 					GDALDataset *poDataset = static_cast<GDALDataset *>(GDALOpenShared(datasetPath.c_str(), GA_ReadOnly));
 					if (poDataset != NULL)
 					{
-						auto width = poDataset->GetRasterXSize();
-						auto height = poDataset->GetRasterYSize();
-						auto bandCount = poDataset->GetRasterCount();
+						DatasetStruct datasetStruct;
+						datasetStruct.width = poDataset->GetRasterXSize();
+						datasetStruct.height = poDataset->GetRasterYSize();
+						datasetStruct.bandCount = poDataset->GetRasterCount();
+						datasetStruct.filePath = datasetPath;
 						outputMutex.lock();
-						printf("Path: %s, Width: %d, Height: %d, BandCount: %d", datasetPath.c_str(), width, height, bandCount);
+						printf("Path: %s, Width: %d, Height: %d, BandCount: %d", 
+							datasetStruct.filePath.c_str(), datasetStruct.width, datasetStruct.height, datasetStruct.bandCount);
 						double geoTransform[6];
 						if (poDataset->GetGeoTransform(geoTransform) == CE_None)
 						{
+							for (auto i = 0; i < 6; i++)
+								datasetStruct.geoTransformParams.push_back(geoTransform[i]);
 							printf(" GeoTransform: %f, %f, %f, %f, %f, %f\n", geoTransform[0], geoTransform[1], geoTransform[2], 
 								geoTransform[3], geoTransform[4], geoTransform[5]);
 						}
@@ -79,10 +88,10 @@ NAN_METHOD(RetrieveDatasetInfo) {
 						std::string thumbnailPath = "c:\\datasets\\thumbnail\\";
 						thumbnailPath += std::experimental::filesystem::path(datasetPath).stem().string();
 						thumbnailPath.append(".png");
-						int thumbnailRatioScaleRatio = ceil(width / thumbnailMaxWidth);
-						gdal_translate((GDALDatasetH)poDataset, width / thumbnailRatioScaleRatio, height / thumbnailRatioScaleRatio, thumbnailPath);
+						int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
+						gdal_translate((GDALDatasetH)poDataset, datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio, thumbnailPath);
+						s_catalogDB->InsertOrUpdateDataset(datasetStruct);
 						GDALClose((GDALDatasetH)poDataset);
-						poDataset = NULL;
 					}
 					else
 					{
@@ -116,6 +125,7 @@ NAN_METHOD(FinishCrawl) {
 	crawlStatus = QueueProcessStatus::CrawlFinished;
 	for (auto& th : threadVec)
 		th.join();
+	delete s_catalogDB;
 	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	return;
 }
