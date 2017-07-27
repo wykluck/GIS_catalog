@@ -1,10 +1,8 @@
 #pragma once
 #include "DatasetStruct.h"
+#include <mongocxx/client.hpp>
+#include <mongocxx/instance.hpp>
 
-namespace mongocxx {
-	class database;
-	class instance;
-};
 
 class CatalogDB
 {
@@ -13,7 +11,7 @@ public:
 	~CatalogDB();
 	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct);
 private:
-	mongocxx::database	*m_pDB;
-	mongocxx::instance  *m_pInstance;
+	mongocxx::database	m_db;
+	mongocxx::instance  m_instance;
 
 };

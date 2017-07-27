@@ -1,14 +1,15 @@
-﻿#include <nan.h>
-#include <thread>
+﻿#include <thread>
 #include <mutex>
 #include <chrono>
 #include <experimental/filesystem>
 #include "gdal.h"
 #include "gdal_priv.h"
+#include "ogr_spatialref.h"
 #include "concurrentqueue.h"
 #include "gdal_translate.h"
 #include "DatasetStruct.h"
 #include "CatalogDB.h"
+#include <nan.h>
 
 static moodycamel::ConcurrentQueue<std::string> s_datasetPathQueue;
 #ifdef DEBUG
@@ -34,8 +35,9 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DRIVER_PATH", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\gdalplugins");
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
-	s_catalogDB = new CatalogDB();
+	
 	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	s_catalogDB = new CatalogDB();
 }
 
 
@@ -66,10 +68,11 @@ NAN_METHOD(RetrieveDatasetInfo) {
 						datasetStruct.width = poDataset->GetRasterXSize();
 						datasetStruct.height = poDataset->GetRasterYSize();
 						datasetStruct.bandCount = poDataset->GetRasterCount();
-						datasetStruct.filePath = datasetPath;
+						datasetStruct.datasetPath = datasetPath;
+						datasetStruct.cellType = 0;
 						outputMutex.lock();
 						printf("Path: %s, Width: %d, Height: %d, BandCount: %d", 
-							datasetStruct.filePath.c_str(), datasetStruct.width, datasetStruct.height, datasetStruct.bandCount);
+							datasetStruct.datasetPath.c_str(), datasetStruct.width, datasetStruct.height, datasetStruct.bandCount);
 						double geoTransform[6];
 						if (poDataset->GetGeoTransform(geoTransform) == CE_None)
 						{
@@ -82,7 +85,13 @@ NAN_METHOD(RetrieveDatasetInfo) {
 						{
 							printf("\n");
 						}
-						
+						OGRSpatialReference ogr(poDataset->GetProjectionRef());
+						auto err = ogr.AutoIdentifyEPSG();
+						if (err = OGRERR_NONE)
+						{
+							datasetStruct.spatialId.append(ogr.GetAuthorityName(NULL));
+							datasetStruct.spatialId.append(ogr.GetAuthorityCode(NULL));
+						}
 						outputMutex.unlock();
 						//generate thumbnails
 						std::string thumbnailPath = "c:\\datasets\\thumbnail\\";

@@ -6,8 +6,7 @@
 #include <bsoncxx/types.hpp>
 #include <bsoncxx/builder/stream/array.hpp>
 #include <mongocxx/uri.hpp>
-#include <mongocxx/client.hpp>
-#include <mongocxx/instance.hpp>
+
 #include <algorithm>
 
 using bsoncxx::builder::stream::close_array;
@@ -19,22 +18,19 @@ using bsoncxx::builder::stream::open_document;
 
 CatalogDB::CatalogDB()
 {
-	//m_pInstance = new mongocxx::instance();// This should be done only once.
-	//mongocxx::client client{ mongocxx::uri{} };
-	//m_pDB = client["CatalogDB"];
+	mongocxx::client client{ mongocxx::uri{} };
+	m_db = client["CatalogDB"];
 }
 
 CatalogDB::~CatalogDB()
 {
-	delete m_pInstance;
-	delete m_pDB;
 }
 
 bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct)
 {
 	auto builder = bsoncxx::builder::stream::document{};
 	auto in_array = builder
-		<< "filePath" << datasetStruct.filePath
+		<< "filePath" << datasetStruct.datasetPath
 		<< "width" << datasetStruct.width
 		<< "height" << datasetStruct.height
 		<< "bandCount" << datasetStruct.bandCount
@@ -44,8 +40,10 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct)
 	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
 		in_array << bsoncxx::types::b_double{ param };
 	});
-	auto docValue = in_array << bsoncxx::builder::stream::close_array << bsoncxx::builder::stream::finalize;
-	mongocxx::collection datasetCollection = (*m_pDB)["Dataset"];
+	auto docValue = in_array 
+		<< bsoncxx::builder::stream::close_array
+		<< bsoncxx::builder::stream::finalize;
+	mongocxx::collection datasetCollection = m_db["Dataset"];
 	datasetCollection.insert_one(docValue.view());
 
 

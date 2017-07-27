@@ -6,7 +6,7 @@ struct DatasetStruct {
 	int height;
 	int bandCount;
 	int cellType;
-	std::string filePath;
+	std::string datasetPath;
 	std::string spatialId;
 	std::vector<double> geoTransformParams;
 };

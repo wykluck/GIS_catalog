@@ -5,7 +5,12 @@
       "sources": [
         "main.cpp",
         "commonutils.cpp",
-        "gdal_translate.cpp"
+        "gdal_translate.cpp",
+        "gdal_translate.h",
+        "CatalogDB.cpp",
+        "CatalogDB.h",
+        "DatasetStruct.h",
+        "commonutils.h"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
