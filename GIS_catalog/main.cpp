@@ -29,6 +29,7 @@ static QueueProcessStatus crawlStatus = QueueProcessStatus::NotStarted;
 static std::mutex outputMutex;
 static CatalogDB *s_catalogDB;
 
+
 NAN_METHOD(GdalInit) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
 	//LoadLibrary("C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\NCSEcwd.dll");
@@ -36,7 +37,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
 	
-	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	s_catalogDB = new CatalogDB();
 }
 
@@ -69,7 +70,8 @@ NAN_METHOD(RetrieveDatasetInfo) {
 						datasetStruct.height = poDataset->GetRasterYSize();
 						datasetStruct.bandCount = poDataset->GetRasterCount();
 						datasetStruct.datasetPath = datasetPath;
-						datasetStruct.cellType = 0;
+						//TODO: here only use the first band's datatype. need to consider all bands.
+						datasetStruct.dataTypeSizeInBits = GDALGetDataTypeSize(poDataset->GetRasterBand(1)->GetRasterDataType());
 						outputMutex.lock();
 						printf("Path: %s, Width: %d, Height: %d, BandCount: %d", 
 							datasetStruct.datasetPath.c_str(), datasetStruct.width, datasetStruct.height, datasetStruct.bandCount);
@@ -86,12 +88,15 @@ NAN_METHOD(RetrieveDatasetInfo) {
 							printf("\n");
 						}
 						OGRSpatialReference ogr(poDataset->GetProjectionRef());
-						auto err = ogr.AutoIdentifyEPSG();
-						if (err = OGRERR_NONE)
+					
+						auto authorityName = ogr.GetAuthorityName("PROJCS");
+						if (authorityName != NULL)
 						{
-							datasetStruct.spatialId.append(ogr.GetAuthorityName(NULL));
-							datasetStruct.spatialId.append(ogr.GetAuthorityCode(NULL));
+							auto authorityCode = ogr.GetAuthorityCode("PROJCS");
+							datasetStruct.spatialId.append(authorityName).append(":")
+								.append(authorityCode);
 						}
+						datasetStruct.updatedTime = std::time(nullptr);
 						outputMutex.unlock();
 						//generate thumbnails
 						std::string thumbnailPath = "c:\\datasets\\thumbnail\\";
@@ -135,7 +140,6 @@ NAN_METHOD(FinishCrawl) {
 	for (auto& th : threadVec)
 		th.join();
 	delete s_catalogDB;
-	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	return;
 }
 

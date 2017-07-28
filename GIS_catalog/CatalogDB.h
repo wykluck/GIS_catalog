@@ -11,7 +11,6 @@ public:
 	~CatalogDB();
 	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct);
 private:
-	mongocxx::database	m_db;
 	mongocxx::instance  m_instance;
-
+	mongocxx::client	m_client;
 };
