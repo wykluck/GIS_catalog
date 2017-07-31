@@ -24,7 +24,7 @@ CatalogDB::~CatalogDB()
 {
 }
 
-bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct)
+bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer)
 {
 	auto builder = bsoncxx::builder::stream::document{};
 	auto in_array = builder
@@ -39,6 +39,14 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct)
 	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
 		in_array << bsoncxx::types::b_double{ param };
 	});
+	/*if (!thumbnailBuffer.empty())
+	{
+		bsoncxx::types::b_binary thumbnailBinary;
+		thumbnailBinary.sub_type = bsoncxx::binary_sub_type::k_binary;
+		thumbnailBinary.bytes = thumbnailBuffer.data();
+		thumbnailBinary.size = thumbnailBuffer.size();
+		in_array << "thumbnail" << thumbnailBinary;
+	}*/
 	auto docValue = in_array 
 		<< bsoncxx::builder::stream::close_array
 		<< bsoncxx::builder::stream::finalize;

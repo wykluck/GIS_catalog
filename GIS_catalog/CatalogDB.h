@@ -9,7 +9,7 @@ class CatalogDB
 public:
 	CatalogDB();
 	~CatalogDB();
-	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct);
+	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer);
 private:
 	mongocxx::instance  m_instance;
 	mongocxx::client	m_client;

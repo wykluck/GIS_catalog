@@ -2,9 +2,7 @@
 #include <mutex>
 #include <chrono>
 #include <experimental/filesystem>
-#include "gdal.h"
-#include "gdal_priv.h"
-#include "ogr_spatialref.h"
+#include "grfmt_gdal.hpp"
 #include "concurrentqueue.h"
 #include "gdal_translate.h"
 #include "DatasetStruct.h"
@@ -37,7 +35,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
 	
-	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	s_catalogDB = new CatalogDB();
 }
 
@@ -62,58 +60,17 @@ NAN_METHOD(RetrieveDatasetInfo) {
 			{
 				if (s_datasetPathQueue.try_dequeue(datasetPath))
 				{
-					GDALDataset *poDataset = static_cast<GDALDataset *>(GDALOpenShared(datasetPath.c_str(), GA_ReadOnly));
-					if (poDataset != NULL)
+					cvGIS::GdalDecoder gdalDecoder;
+					gdalDecoder.setSource(datasetPath);
+					if (gdalDecoder.readHeader())
 					{
-						DatasetStruct datasetStruct;
-						datasetStruct.width = poDataset->GetRasterXSize();
-						datasetStruct.height = poDataset->GetRasterYSize();
-						datasetStruct.bandCount = poDataset->GetRasterCount();
-						datasetStruct.datasetPath = datasetPath;
-						//TODO: here only use the first band's datatype. need to consider all bands.
-						datasetStruct.dataTypeSizeInBits = GDALGetDataTypeSize(poDataset->GetRasterBand(1)->GetRasterDataType());
-						outputMutex.lock();
-						printf("Path: %s, Width: %d, Height: %d, BandCount: %d", 
-							datasetStruct.datasetPath.c_str(), datasetStruct.width, datasetStruct.height, datasetStruct.bandCount);
-						double geoTransform[6];
-						if (poDataset->GetGeoTransform(geoTransform) == CE_None)
-						{
-							for (auto i = 0; i < 6; i++)
-								datasetStruct.geoTransformParams.push_back(geoTransform[i]);
-							printf(" GeoTransform: %f, %f, %f, %f, %f, %f\n", geoTransform[0], geoTransform[1], geoTransform[2], 
-								geoTransform[3], geoTransform[4], geoTransform[5]);
-						}
-						else
-						{
-							printf("\n");
-						}
-						OGRSpatialReference ogr(poDataset->GetProjectionRef());
-					
-						auto authorityName = ogr.GetAuthorityName("PROJCS");
-						if (authorityName != NULL)
-						{
-							auto authorityCode = ogr.GetAuthorityCode("PROJCS");
-							datasetStruct.spatialId.append(authorityName).append(":")
-								.append(authorityCode);
-						}
-						datasetStruct.updatedTime = std::time(nullptr);
-						outputMutex.unlock();
-						//generate thumbnails
-						std::string thumbnailPath = "c:\\datasets\\thumbnail\\";
-						thumbnailPath += std::experimental::filesystem::path(datasetPath).stem().string();
-						thumbnailPath.append(".png");
+						auto datasetStruct = gdalDecoder.getMetaData();
+						std::vector<uchar> thumbnailBuffer;
 						int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
-						gdal_translate((GDALDatasetH)poDataset, datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio, thumbnailPath);
-						s_catalogDB->InsertOrUpdateDataset(datasetStruct);
-						GDALClose((GDALDatasetH)poDataset);
-					}
-					else
-					{
-						outputMutex.lock();
-						printf("Unable to open dataset at %s\n", datasetPath.c_str());
-						outputMutex.unlock();
-					}
-					
+						gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
+							thumbnailBuffer);
+						s_catalogDB->InsertOrUpdateDataset(datasetStruct, thumbnailBuffer);
+					}	
 				}
 				else
 				{

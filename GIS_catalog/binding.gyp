@@ -10,7 +10,11 @@
         "CatalogDB.cpp",
         "CatalogDB.h",
         "DatasetStruct.h",
-        "commonutils.h"
+        "commonutils.h",
+        "grfmt_base.cpp",
+        "grfmt_base.hpp",
+        "grfmt_gdal.cpp",
+        "grfmt_gdal.hpp"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")",
