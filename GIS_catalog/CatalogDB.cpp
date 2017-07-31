@@ -39,16 +39,16 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
 		in_array << bsoncxx::types::b_double{ param };
 	});
-	/*if (!thumbnailBuffer.empty())
+	auto closed_array = in_array << bsoncxx::builder::stream::close_array;
+	if (!thumbnailBuffer.empty())
 	{
 		bsoncxx::types::b_binary thumbnailBinary;
 		thumbnailBinary.sub_type = bsoncxx::binary_sub_type::k_binary;
 		thumbnailBinary.bytes = thumbnailBuffer.data();
 		thumbnailBinary.size = thumbnailBuffer.size();
-		in_array << "thumbnail" << thumbnailBinary;
-	}*/
-	auto docValue = in_array 
-		<< bsoncxx::builder::stream::close_array
+		closed_array << "thumbnail" << thumbnailBinary;
+	}
+	auto docValue = closed_array
 		<< bsoncxx::builder::stream::finalize;
 	auto datasetCollection = m_client["CatalogDB"]["Dataset"];
 	datasetCollection.insert_one(docValue.view());

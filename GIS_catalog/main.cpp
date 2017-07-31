@@ -64,7 +64,7 @@ NAN_METHOD(RetrieveDatasetInfo) {
 					gdalDecoder.setSource(datasetPath);
 					if (gdalDecoder.readHeader())
 					{
-						auto datasetStruct = gdalDecoder.getMetaData();
+						const DatasetStruct& datasetStruct = gdalDecoder.getMetaData();
 						std::vector<uchar> thumbnailBuffer;
 						int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
 						gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,

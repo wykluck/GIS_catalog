@@ -50,7 +50,7 @@
                   "VCLinkerTool": {
                     "LinkIncremental": 1,
                     "LinkTimeCodeGeneration": 1,
-                    "AdditionalDependencies": [ "gdald.lib", "mongocxx.lib", "bsoncxx.lib" ]
+                    "AdditionalDependencies": [ "%(AdditionalDependencies)" ]
                   }
                 }
               },
@@ -81,7 +81,7 @@
                     "OptimizeReferences": 2,
                     "EnableCOMDATFolding": 2,
                     "LinkIncremental": 1,
-                    "AdditionalDependencies": [ "gdal.lib", "mongocxx.lib", "bsoncxx.lib" ]
+                    "AdditionalDependencies": [ "%(AdditionalDependencies)" ]
                   }
                 }
               }
