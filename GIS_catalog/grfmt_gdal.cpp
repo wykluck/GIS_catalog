@@ -52,6 +52,8 @@
 #include <stdexcept>
 #include <string>
 #include <opencv2/opencv.hpp>
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
 using namespace cv;
 namespace cvGIS{
 
@@ -556,6 +558,8 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		nChannels = mat.channels();
 	}
 
+	// create a temporary scanline pointer to store data
+	double* uBuffer = new double[mat.cols * mat.rows];
 	for (int c = 0; c<nChannels; c++) {
 
 		// get the GDAL Band
@@ -568,11 +572,23 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		nRows = band->GetYSize();
 		nCols = band->GetXSize();
 
-		// create a temporary scanline pointer to store data
-		uchar* uBuffer = new uchar[mat.cols * mat.rows];
+		//OpenCV requires the order has to be 'BGR' when reading into a cv::Mat
+		auto targetChannel = c;
+		switch (band->GetColorInterpretation())
+		{
+		case GCI_RedBand:
+			targetChannel = 2;
+			break;
+		case GCI_GreenBand:
+			targetChannel = 1;
+			break;
+		case GCI_BlueBand:
+			targetChannel = 0;
+			break;
+		}
 
 		band->RasterIO(GF_Read, 0, 0, nCols, nRows, uBuffer, mat.cols, mat.rows,
-			GDT_Byte, 0, 0);
+			GDT_Float64, 0, 0);
 
 		// iterate over each row and column
 		for (int y = 0; y<mat.rows; y++) {
@@ -583,18 +599,16 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 				// set depending on image types
 				//   given boost, I would use enable_if to speed up.  Avoid for now.
 				if (hasColorTable == false) {
-					write_pixel(uBuffer[y * mat.cols + x], gdalType, nChannels, mat, y, x, c);
+					write_pixel(uBuffer[y * mat.cols + x], gdalType, nChannels, mat, y, x, targetChannel);
 				}
 				else {
-					write_ctable_pixel(uBuffer[y * mat.cols + x], gdalType, gdalColorTable, mat, y, x, c);
+					write_ctable_pixel(uBuffer[y * mat.cols + x], gdalType, gdalColorTable, mat, y, x, targetChannel);
 				}
 			}
 		}
-
-		// delete our temp pointer
-		delete[] uBuffer;
 	}
-
+	// delete our temp pointer
+	delete[] uBuffer;
 	return true;
 }
 
@@ -603,6 +617,9 @@ bool GdalDecoder::generateThumbnail(int width, int height, std::vector<uchar>& t
 {
 	cv::Mat thumbnailMat(width, height, CV_8UC3);
 	readThumbnailData(thumbnailMat);
+	//std::string thumbnailPath = "c:\\thumbnails\\";
+	//thumbnailPath.append(fs::path(m_filename.c_str()).stem().string()).append(".png");
+	//return imwrite(thumbnailPath, thumbnailMat);
 	return imencode(".png", thumbnailMat, thumbnailBuffer);
 }
 
