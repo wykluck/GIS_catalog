@@ -32,6 +32,7 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="datasetCrawler.js" />
+    <Compile Include="server.js" />
     <Content Include="binding.gyp" />
     <Content Include="config.json" />
     <Content Include="package.json" />

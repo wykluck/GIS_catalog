@@ -1,8 +1,8 @@
 {
   "name": "gis_catalog",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "GIS_catalog",
-  "main": "app.js",
+  "main": "server.js",
   "author": {
     "name": "ywang",
     "email": "wykluck@gmail.com"
@@ -13,7 +13,10 @@
   },
   "gypfile": true,
   "dependencies": {
+    "assert": "^1.4.1",
     "bindings": "^1.2.1",
+    "express": "^4.15.3",
+    "mongodb": "^2.2.30",
     "nan": "^2.6.2"
   }
 }
