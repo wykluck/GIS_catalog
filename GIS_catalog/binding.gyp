@@ -4,13 +4,9 @@
       "target_name": "addon",
       "sources": [
         "main.cpp",
-        "commonutils.cpp",
-        "gdal_translate.cpp",
-        "gdal_translate.h",
         "CatalogDB.cpp",
         "CatalogDB.h",
         "DatasetStruct.h",
-        "commonutils.h",
         "grfmt_base.cpp",
         "grfmt_base.hpp",
         "grfmt_gdal.cpp",

@@ -617,10 +617,7 @@ bool GdalDecoder::generateThumbnail(int width, int height, std::vector<uchar>& t
 {
 	cv::Mat thumbnailMat(width, height, CV_8UC3);
 	readThumbnailData(thumbnailMat);
-	//std::string thumbnailPath = "c:\\thumbnails\\";
-	//thumbnailPath.append(fs::path(m_filename.c_str()).stem().string()).append(".png");
-	//return imwrite(thumbnailPath, thumbnailMat);
-	return imencode(".png", thumbnailMat, thumbnailBuffer);
+	return imencode(".jpg", thumbnailMat, thumbnailBuffer);
 }
 
 

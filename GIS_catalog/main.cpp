@@ -4,7 +4,6 @@
 #include <experimental/filesystem>
 #include "grfmt_gdal.hpp"
 #include "concurrentqueue.h"
-#include "gdal_translate.h"
 #include "DatasetStruct.h"
 #include "CatalogDB.h"
 #include <nan.h>
@@ -35,7 +34,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
 	
-	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	//::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	s_catalogDB = new CatalogDB();
 }
 
@@ -65,7 +64,7 @@ NAN_METHOD(RetrieveDatasetInfo) {
 					if (gdalDecoder.readHeader())
 					{
 						const DatasetStruct& datasetStruct = gdalDecoder.getMetaData();
-						std::vector<uchar> thumbnailBuffer(307200);
+						std::vector<uchar> thumbnailBuffer;
 						int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
 						gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
 							thumbnailBuffer);
