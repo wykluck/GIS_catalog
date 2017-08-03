@@ -7,14 +7,10 @@
     "name": "ywang",
     "email": "wykluck@gmail.com"
   },
-  "scripts": {
-    "compile": "node-gyp rebuild",
-    "start": "node app.js"
-  },
-  "gypfile": true,
   "dependencies": {
     "assert": "^1.4.1",
     "bindings": "^1.2.1",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
     "nan": "^2.6.2"

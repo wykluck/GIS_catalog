@@ -1,12 +1,27 @@
 ﻿var express = require('express')
 var app = express()
 var MongoClient = require('mongodb').MongoClient, assert = require('assert');
+var bodyParser = require('body-parser');
 
-app.get('/docs', function (req, res) {
-    datasetCollection.find({}).toArray(function (err, docs) {
-        res.writeHead(200, { 'Content-Type': 'image/jpeg' });
-        res.end(new Buffer.from(docs[0].thumbnail));
-        //res.send(docs[0].thumbnail);
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+//TODO: Not sure post with query parameter in request body is correct way to do it.
+app.post('/datasets/metadata', function (req, res) {
+    datasetCollection.find(req.body).toArray(function (err, docs) {
+        for (let doc of docs) {
+            delete doc.thumbnail;
+        }
+        res.contentType('application/json');
+        res.send(docs);
+    });
+})
+
+app.post('/datasets/thumbnails', function (req, res) {
+    //TODO: need to think about how to return multiple images as response
+    datasetCollection.findOne(req.body, function (err, doc) {
+        res.contentType('png');
+        res.end(doc.thumbnail.buffer, 'binary');
     });
 })
 
