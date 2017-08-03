@@ -2,6 +2,7 @@
 var app = express()
 var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 var bodyParser = require('body-parser');
+var ObjectID = require('mongodb').ObjectID;
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -10,17 +11,19 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 app.post('/datasets/metadata', function (req, res) {
     datasetCollection.find(req.body).toArray(function (err, docs) {
         for (let doc of docs) {
+            //delete the thumbnail image and add thumbnail url instead
             delete doc.thumbnail;
+            doc["thumbnailUrl"] = req.protocol + '://' + req.get('host') + "/datasets/thumbnail/" + doc._id;
         }
         res.contentType('application/json');
         res.send(docs);
     });
 })
 
-app.post('/datasets/thumbnails', function (req, res) {
-    //TODO: need to think about how to return multiple images as response
-    datasetCollection.findOne(req.body, function (err, doc) {
-        res.contentType('png');
+app.get('/datasets/thumbnail/:id', function (req, res) {
+    let objectId = new ObjectID(req.params.id);
+    datasetCollection.findOne({ _id: objectId }, function (err, doc) {
+        res.contentType('jpeg');
         res.end(doc.thumbnail.buffer, 'binary');
     });
 })
