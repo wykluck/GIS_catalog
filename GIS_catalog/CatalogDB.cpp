@@ -5,6 +5,8 @@
 #include <bsoncxx/json.hpp>
 #include <bsoncxx/types.hpp>
 #include <bsoncxx/builder/stream/array.hpp>
+#include <bsoncxx/builder/stream/document.hpp>
+#include <mongocxx/client.hpp>
 #include <mongocxx/uri.hpp>
 
 #include <algorithm>
@@ -16,7 +18,7 @@ using bsoncxx::builder::stream::finalize;
 using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 
-CatalogDB::CatalogDB():m_client(mongocxx::uri{})
+CatalogDB::CatalogDB():m_pool(mongocxx::uri{})
 {
 }
 
@@ -50,9 +52,9 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 	}
 	auto docValue = closed_array
 		<< bsoncxx::builder::stream::finalize;
-	auto datasetCollection = m_client["CatalogDB"]["Dataset"];
+	auto connection = m_pool.acquire();
+	auto datasetCollection = (*connection)["CatalogDB"]["Dataset"];
 	datasetCollection.insert_one(docValue.view());
-
 
 	return true;
 }

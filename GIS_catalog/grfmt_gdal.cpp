@@ -551,7 +551,6 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		gdalColorTable = m_dataset->GetRasterBand(1)->GetColorTable();
 	}
 
-	const GDALDataType gdalType = m_dataset->GetRasterBand(1)->GetRasterDataType();
 	int nRows, nCols;
 
 	if (nChannels > mat.channels()) {
@@ -588,7 +587,7 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		}
 
 		band->RasterIO(GF_Read, 0, 0, nCols, nRows, uBuffer, mat.cols, mat.rows,
-			GDT_Float64, 0, 0);
+			GDT_Byte, 0, 0);
 
 		// iterate over each row and column
 		for (int y = 0; y<mat.rows; y++) {
@@ -598,12 +597,13 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 
 				// set depending on image types
 				//   given boost, I would use enable_if to speed up.  Avoid for now.
-				if (hasColorTable == false) {
-					write_pixel(uBuffer[y * mat.cols + x], gdalType, nChannels, mat, y, x, targetChannel);
-				}
-				else {
-					write_ctable_pixel(uBuffer[y * mat.cols + x], gdalType, gdalColorTable, mat, y, x, targetChannel);
-				}
+				mat.at<Vec3b>(y, x)[c] = uBuffer[y * mat.cols + x];
+				//if (hasColorTable == false) {
+				//	write_pixel(uBuffer[y * mat.cols + x], gdalType, nChannels, mat, y, x, targetChannel);
+				//}
+				//else {
+				//	write_ctable_pixel(uBuffer[y * mat.cols + x], gdalType, gdalColorTable, mat, y, x, targetChannel);
+				//}
 			}
 		}
 	}

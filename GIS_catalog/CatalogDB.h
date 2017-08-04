@@ -1,6 +1,6 @@
 #pragma once
 #include "DatasetStruct.h"
-#include <mongocxx/client.hpp>
+#include <mongocxx/pool.hpp>
 #include <mongocxx/instance.hpp>
 
 
@@ -12,5 +12,6 @@ public:
 	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer);
 private:
 	mongocxx::instance  m_instance;
-	mongocxx::client	m_client;
+	//the pool is recommended by mongocxx driver to handle multi-threading
+	mongocxx::pool m_pool;
 };

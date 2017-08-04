@@ -23,7 +23,6 @@ enum class QueueProcessStatus{
 	ProcessingLeftover,
 };
 static QueueProcessStatus crawlStatus = QueueProcessStatus::NotStarted;
-static std::mutex outputMutex;
 static CatalogDB *s_catalogDB;
 
 
