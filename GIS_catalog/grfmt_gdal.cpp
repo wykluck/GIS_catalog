@@ -558,7 +558,7 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 	}
 
 	// create a temporary scanline pointer to store data
-	double* uBuffer = new double[mat.cols * mat.rows];
+	uchar* uBuffer = new uchar[mat.cols * mat.rows];
 	for (int c = 0; c<nChannels; c++) {
 
 		// get the GDAL Band
@@ -810,8 +810,6 @@ bool GdalDecoder::readHeader(){
 	{
 		for (auto i = 0; i < 6; i++)
 			m_imageMetadata.geoTransformParams.push_back(geoTransform[i]);
-		printf(" GeoTransform: %f, %f, %f, %f, %f, %f\n", geoTransform[0], geoTransform[1], geoTransform[2],
-			geoTransform[3], geoTransform[4], geoTransform[5]);
 	}
 	OGRSpatialReference ogr(m_dataset->GetProjectionRef());
 
