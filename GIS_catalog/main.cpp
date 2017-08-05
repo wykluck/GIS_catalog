@@ -33,7 +33,7 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
 	
-	//::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	s_catalogDB = new CatalogDB();
 }
 

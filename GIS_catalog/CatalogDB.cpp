@@ -29,7 +29,7 @@ CatalogDB::~CatalogDB()
 bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer)
 {
 	auto builder = bsoncxx::builder::stream::document{};
-	auto in_array = builder
+	auto in_array = builder << "$set" << open_document
 		<< "filePath" << bsoncxx::types::b_utf8(datasetStruct.datasetPath)
 		<< "width" << datasetStruct.width
 		<< "height" << datasetStruct.height
@@ -50,11 +50,13 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		thumbnailBinary.size = thumbnailBuffer.size();
 		closed_array << "thumbnail" << thumbnailBinary;
 	}
-	auto docValue = closed_array
-		<< bsoncxx::builder::stream::finalize;
+	auto docValue = closed_array << close_document;
 	auto connection = m_pool.acquire();
 	auto datasetCollection = (*connection)["CatalogDB"]["Dataset"];
-	datasetCollection.insert_one(docValue.view());
-
+	mongocxx::options::update updateOptions;
+	updateOptions.upsert(true);
+	auto filterDocument = document{};
+	filterDocument << "filePath" << bsoncxx::types::b_utf8(datasetStruct.datasetPath);
+	datasetCollection.update_one(filterDocument.view(), builder.view(), updateOptions);
 	return true;
 }
