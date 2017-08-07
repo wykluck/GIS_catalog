@@ -32,12 +32,12 @@ NAN_METHOD(GdalInit) {
 	//CPLSetConfigOption("GDAL_DRIVER_PATH", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\gdalplugins");
 	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
 	GDALAllRegister();
-	
+	s_catalogDB = new CatalogDB();
 	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 }
 
 NAN_METHOD(BeginUpdate) {
-	s_catalogDB = new CatalogDB();
+	
 	crawlStatus = QueueProcessStatus::NotStarted;
 }
 
@@ -98,7 +98,6 @@ NAN_METHOD(EndUpdate) {
 	for (auto& th : threadVec)
 		th.join();
 	threadVec.clear();
-	delete s_catalogDB;
 	return;
 }
 

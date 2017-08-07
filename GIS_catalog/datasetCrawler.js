@@ -5,19 +5,6 @@ var gdal_binding = require('bindings')('addon.node');
 var exports = module.exports = {};
 gdal_binding.GdalInit();
 
-var readConfig = new Promise((resolve, reject) => {
-    fs.readFile('./config.json', 'utf8', function (err, data) {
-        if (err) reject(err);
-        //strip the potential bom marker
-        data = data.replace(/^\uFEFF/, '');
-        try {
-            resolve(JSON.parse(data));
-        }
-        catch (err) {
-            reject(err);
-        }
-    });
-});
 
 var retrieveDatasetInfo = (filePath) => {
     gdal_binding.RetrieveDatasetInfo(filePath);
@@ -43,17 +30,11 @@ var traverseDirectory = (dirname, formatExtensionSet, callback) => {
     });
 }
 
-var updateAllDatasetInfo = () => {
-    readConfig.then((configObj) => {
-        gdal_binding.BeginUpdate();
-        let formatExtensionSet = new Set(configObj.formatExtensions);
-        configObj.catalogBaseDirs.forEach((baseDir) => {
-            traverseDirectory(baseDir, formatExtensionSet, gdal_binding.UpdateDatasetInfo);
-        });
-        gdal_binding.EndUpdate();
-    }).catch((err) => {
-        console.log(err);
+exports.updateAllDatasetInfo = (configObj) => {
+    gdal_binding.BeginUpdate();
+    let formatExtensionSet = new Set(configObj.formatExtensions);
+    configObj.catalogBaseDirs.forEach((baseDir) => {
+        traverseDirectory(baseDir, formatExtensionSet, gdal_binding.UpdateDatasetInfo);
     });
+    gdal_binding.EndUpdate();
 }
-
-exports.updateAllDatasetInfo = updateAllDatasetInfo;

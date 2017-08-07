@@ -2,5 +2,6 @@
   "catalogBaseDirs": [
     "c:\\Datasets"
   ],
-  "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ]
+  "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ],
+  "scanCronPeriod":  "0 */5 * * * *"
 }
