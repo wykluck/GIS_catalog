@@ -18,12 +18,14 @@ using bsoncxx::builder::stream::finalize;
 using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 
-CatalogDB::CatalogDB():m_pool(mongocxx::uri{})
+CatalogDB::CatalogDB():m_pool(m_uri)
 {
+	printf("Connected to the database successfully at %s\n", m_uri.to_string().c_str());
 }
 
 CatalogDB::~CatalogDB()
 {
+	printf("Disconnected to the database successfully at %s\n", m_uri.to_string().c_str());
 }
 
 bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer)

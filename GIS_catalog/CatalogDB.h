@@ -13,5 +13,6 @@ public:
 private:
 	mongocxx::instance  m_instance;
 	//the pool is recommended by mongocxx driver to handle multi-threading
+	mongocxx::uri m_uri;
 	mongocxx::pool m_pool;
 };

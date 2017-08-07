@@ -176,7 +176,7 @@ GdalDecoder::GdalDecoder() :
 
 
     /// Register the driver
-    GDALAllRegister();
+    //GDALAllRegister();
 
     m_driver = NULL;
     m_dataset = NULL;

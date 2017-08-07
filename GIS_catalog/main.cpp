@@ -34,12 +34,15 @@ NAN_METHOD(GdalInit) {
 	GDALAllRegister();
 	
 	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+}
+
+NAN_METHOD(BeginUpdate) {
 	s_catalogDB = new CatalogDB();
+	crawlStatus = QueueProcessStatus::NotStarted;
 }
 
 
-
-NAN_METHOD(RetrieveDatasetInfo) {
+NAN_METHOD(UpdateDatasetInfo) {
 	if (!info[0]->IsString())
 	{
 		Nan::ThrowTypeError("Wrong arguments");
@@ -90,10 +93,11 @@ NAN_METHOD(RetrieveDatasetInfo) {
 	}
 }
 
-NAN_METHOD(FinishCrawl) {
+NAN_METHOD(EndUpdate) {
 	crawlStatus = QueueProcessStatus::CrawlFinished;
 	for (auto& th : threadVec)
 		th.join();
+	threadVec.clear();
 	delete s_catalogDB;
 	return;
 }
@@ -102,8 +106,9 @@ NAN_METHOD(FinishCrawl) {
 NAN_MODULE_INIT(Initialize) {
 	// Export the `GdalInit` function (equivalent to `export function Hello (...)` in JS)
 	NAN_EXPORT(target, GdalInit);
-	NAN_EXPORT(target, RetrieveDatasetInfo);
-	NAN_EXPORT(target, FinishCrawl);
+	NAN_EXPORT(target, BeginUpdate);
+	NAN_EXPORT(target, UpdateDatasetInfo);
+	NAN_EXPORT(target, EndUpdate);
 }
 
 // Create the module called "addon" and initialize it with `Initialize` function (created with NAN_MODULE_INIT macro)

@@ -11,6 +11,7 @@
     "assert": "^1.4.1",
     "bindings": "^1.2.1",
     "body-parser": "^1.17.2",
+    "cron": "^1.2.1",
     "express": "^4.15.3",
     "mongodb": "^2.2.30",
     "nan": "^2.6.2"

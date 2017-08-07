@@ -1,5 +1,16 @@
 ﻿var datasetCrawler = require('./datasetCrawler');
-
-datasetCrawler.printAllDatasetInfo();
+var CronJob = require('cron').CronJob;
+/*
+var job = new CronJob({
+    cronTime: '* * * * * *',
+    onTick: function () {
+        datasetCrawler.updateAllDatasetInfo();
+    },
+    start: false,
+    timeZone: 'America/Los_Angeles'
+});
+job.start();
+*/
+datasetCrawler.updateAllDatasetInfo();
 
 

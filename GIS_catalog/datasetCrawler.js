@@ -3,6 +3,7 @@ var path = require('path');
 var process = require('process');
 var gdal_binding = require('bindings')('addon.node');
 var exports = module.exports = {};
+gdal_binding.GdalInit();
 
 var readConfig = new Promise((resolve, reject) => {
     fs.readFile('./config.json', 'utf8', function (err, data) {
@@ -42,17 +43,17 @@ var traverseDirectory = (dirname, formatExtensionSet, callback) => {
     });
 }
 
-var printAllDatasetInfo = () => {
-    gdal_binding.GdalInit();
+var updateAllDatasetInfo = () => {
     readConfig.then((configObj) => {
+        gdal_binding.BeginUpdate();
         let formatExtensionSet = new Set(configObj.formatExtensions);
         configObj.catalogBaseDirs.forEach((baseDir) => {
-            traverseDirectory(baseDir, formatExtensionSet, retrieveDatasetInfo);
+            traverseDirectory(baseDir, formatExtensionSet, gdal_binding.UpdateDatasetInfo);
         });
-        gdal_binding.FinishCrawl();
+        gdal_binding.EndUpdate();
     }).catch((err) => {
-        process.send('Unable to open gdal file at ' + filePath);
+        console.log(err);
     });
 }
 
-exports.printAllDatasetInfo = printAllDatasetInfo;
+exports.updateAllDatasetInfo = updateAllDatasetInfo;
