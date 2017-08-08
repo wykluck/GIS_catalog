@@ -10,5 +10,4 @@ struct DatasetStruct {
 	std::string datasetPath;
 	std::string spatialId;
 	std::vector<double> geoTransformParams;
-	std::time_t updatedTime;
 };

@@ -31,7 +31,7 @@ var traverseDirectory = (dirname, formatExtensionSet, callback) => {
 }
 
 exports.updateAllDatasetInfo = (configObj) => {
-    gdal_binding.BeginUpdate();
+    gdal_binding.BeginUpdate(configObj.forceUpdate);
     let formatExtensionSet = new Set(configObj.formatExtensions);
     configObj.catalogBaseDirs.forEach((baseDir) => {
         traverseDirectory(baseDir, formatExtensionSet, gdal_binding.UpdateDatasetInfo);

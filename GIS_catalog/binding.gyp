@@ -10,7 +10,9 @@
         "grfmt_base.cpp",
         "grfmt_base.hpp",
         "grfmt_gdal.cpp",
-        "grfmt_gdal.hpp"
+        "grfmt_gdal.hpp",
+        "Utilities.h",
+        "Utilities.cpp"
       ],
       "include_dirs": [
         "<!(node -e \"require('nan')\")",

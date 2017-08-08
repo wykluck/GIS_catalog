@@ -820,7 +820,6 @@ bool GdalDecoder::readHeader(){
 		m_imageMetadata.spatialId.append(authorityName).append(":")
 			.append(authorityCode);
 	}
-	m_imageMetadata.updatedTime = std::time(nullptr);	
 
     return true;
 }

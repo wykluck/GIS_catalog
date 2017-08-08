@@ -28,7 +28,19 @@ CatalogDB::~CatalogDB()
 	printf("Disconnected to the database successfully.\n");
 }
 
-bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const std::vector<unsigned char>& thumbnailBuffer)
+time64_t CatalogDB::getDatasetLastModifiedTime(const std::string datasetPath)
+{
+	auto connection = m_pool.acquire();
+	auto datasetCollection = (*connection)["CatalogDB"]["Dataset"];
+	bsoncxx::stdx::optional<bsoncxx::document::value> maybe_result =
+		datasetCollection.find_one( document{} << "filePath" << bsoncxx::types::b_utf8(datasetPath) << finalize);
+	if (maybe_result) {
+		auto lastModifiedTime = maybe_result->view()["lastModifiedTime"];
+		return lastModifiedTime.get_int64();
+	}
+}
+
+bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, time64_t lastModifiedTime,  const std::vector<unsigned char>& thumbnailBuffer)
 {
 	auto builder = bsoncxx::builder::stream::document{};
 	auto in_array = builder << "$set" << open_document
@@ -38,7 +50,7 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		<< "bandCount" << datasetStruct.bandCount
 		<< "dataTypeSizeInBits" << datasetStruct.dataTypeSizeInBits
 		<< "spatialId" << bsoncxx::types::b_utf8(datasetStruct.spatialId)
-		<< "updatedTime" << datasetStruct.updatedTime
+		<< "lastModifiedTime" << lastModifiedTime
 		<< "geoTransformParams" << bsoncxx::builder::stream::open_array;
 	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
 		in_array << bsoncxx::types::b_double{ param };
