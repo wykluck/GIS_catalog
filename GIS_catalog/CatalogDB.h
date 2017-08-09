@@ -3,12 +3,15 @@
 #include "Utilities.h"
 #include <mongocxx/pool.hpp>
 #include <mongocxx/instance.hpp>
-
+namespace spdlog
+{
+	class logger;
+}
 
 class CatalogDB
 {
 public:
-	CatalogDB();
+	CatalogDB(const std::shared_ptr<spdlog::logger>& logger);
 	~CatalogDB();
 	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct, 
 		time64_t lastModifiedTime, const std::vector<unsigned char>& thumbnailBuffer);
@@ -18,4 +21,6 @@ private:
 	//the pool is recommended by mongocxx driver to handle multi-threading
 	mongocxx::uri m_uri;
 	mongocxx::pool m_pool;
+	std::shared_ptr<spdlog::logger> m_logger;
+
 };

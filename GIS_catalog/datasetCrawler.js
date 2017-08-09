@@ -3,7 +3,7 @@ var path = require('path');
 var process = require('process');
 var gdal_binding = require('bindings')('addon.node');
 var exports = module.exports = {};
-gdal_binding.GdalInit();
+
 
 
 var retrieveDatasetInfo = (filePath) => {

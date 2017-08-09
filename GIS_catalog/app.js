@@ -1,6 +1,9 @@
 ﻿var datasetCrawler = require('./datasetCrawler');
 var CronJob = require('cron').CronJob;
 var fs = require('fs');
+var gdal_binding = require('bindings')('addon.node');
+var path = require('path');
+var mkdirp = require('mkdirp');
 
 var readConfig = new Promise((resolve, reject) => {
     fs.readFile('./config.json', 'utf8', function (err, data) {
@@ -17,6 +20,15 @@ var readConfig = new Promise((resolve, reject) => {
 });
 
 readConfig.then((configObj) => {
+    let logFilePath = null;
+    if (configObj.hasOwnProperty("logFileDirectory") && configObj["logFileDirectory"] !== null) {
+        logFilePath = configObj["logFileDirectory"];
+    }
+    else
+        logFilePath = process.cwd() + path.sep + "logs";
+    mkdirp.sync(logFilePath);
+    logFilePath += path.sep + "UpdateDataset.log";
+    gdal_binding.Init(logFilePath);
     var job = new CronJob({
         cronTime: configObj.scanCronPeriod,
         onTick: function () {

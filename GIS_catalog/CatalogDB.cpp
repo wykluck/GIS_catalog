@@ -8,6 +8,7 @@
 #include <bsoncxx/builder/stream/document.hpp>
 #include <mongocxx/client.hpp>
 #include <mongocxx/uri.hpp>
+#include "spdlog/spdlog.h"
 
 #include <algorithm>
 
@@ -18,14 +19,15 @@ using bsoncxx::builder::stream::finalize;
 using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 
-CatalogDB::CatalogDB() :m_pool(mongocxx::uri{})
+CatalogDB::CatalogDB(const std::shared_ptr<spdlog::logger>& logger) 
+	:m_pool(mongocxx::uri{}), m_logger(logger)
 {
-	printf("Connected to the database successfully.\n");
+	m_logger->info("Connected to the database successfully.\n");
 }
 
 CatalogDB::~CatalogDB()
 {
-	printf("Disconnected to the database successfully.\n");
+	m_logger->info("Disconnected to the database successfully.\n");
 }
 
 time64_t CatalogDB::getDatasetLastModifiedTime(const std::string datasetPath)
