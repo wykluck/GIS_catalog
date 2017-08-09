@@ -12,22 +12,27 @@ var retrieveDatasetInfo = (filePath) => {
 
 var traverseDirectory = (dirname, formatExtensionSet, callback) => {
     var directory = [];
-    childPathArr = fs.readdirSync(dirname);
-    childPathArr.forEach(function (file) {
-        file = dirname + '\\' + file;
-        stat = fs.statSync(file);
-        if (stat) {
-            directory.push(file);
-            if (stat && stat.isDirectory()) {
-                traverseDirectory(file, formatExtensionSet, callback);
-            } else {
-                let lowerExtName = path.extname(file).toLowerCase();
-                if (stat.isFile() && formatExtensionSet.has(lowerExtName)) {
-                    callback(file);
+    try {
+        childPathArr = fs.readdirSync(dirname);
+        childPathArr.forEach(function (file) {
+            file = dirname + '\\' + file;
+            stat = fs.statSync(file);
+            if (stat) {
+                directory.push(file);
+                if (stat && stat.isDirectory()) {
+                    traverseDirectory(file, formatExtensionSet, callback);
+                } else {
+                    let lowerExtName = path.extname(file).toLowerCase();
+                    if (stat.isFile() && formatExtensionSet.has(lowerExtName)) {
+                        callback(file);
+                    }
                 }
-            }
-        };
-    });
+            };
+        });
+    }
+    catch (ex) {
+        console.log(ex);
+    }
 }
 
 exports.updateAllDatasetInfo = (configObj) => {

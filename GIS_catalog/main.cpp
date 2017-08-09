@@ -28,7 +28,7 @@ static QueueProcessStatus crawlStatus = QueueProcessStatus::NotStarted;
 static CatalogDB *s_catalogDB;
 static bool s_forceUpdate = false;
 
-static std::shared_ptr<spdlog::logger> logger;
+std::shared_ptr<spdlog::logger> logger;
 
 NAN_METHOD(Init) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now

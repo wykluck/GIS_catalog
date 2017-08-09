@@ -7,13 +7,13 @@
 #endif
 #include <memory>
 #include "spdlog/spdlog.h"
+#include "gdal.h"
 
 #ifdef WIN32
 #define stat _stat
 #endif
 
 extern std::shared_ptr<spdlog::logger> logger;
-
 Utilities::Utilities()
 {
 }
@@ -33,8 +33,7 @@ time64_t Utilities::GetLastModifiedTime(const std::string& filePath)
 	return 0;
 }
 
-
-static void CPL_STDCALL GDALErrorLogger(CPLErr eErrClass, int nError, const char * pszErrorMsg)
+void CPL_STDCALL Utilities::GDALErrorLogger(CPLErr eErrClass, int nError, const char * pszErrorMsg)
 {
 	static int       nCount = 0;
 	static int       nMaxErrors = 1000;
