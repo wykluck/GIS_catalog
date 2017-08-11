@@ -14,7 +14,7 @@ public:
 	CatalogDB(const std::shared_ptr<spdlog::logger>& logger);
 	~CatalogDB();
 	bool InsertOrUpdateDataset(const DatasetStruct& datasetStruct, 
-		time64_t lastModifiedTime, const std::vector<unsigned char>& thumbnailBuffer);
+		const FileStats& fileStats, const std::vector<unsigned char>& thumbnailBuffer);
 	time64_t getDatasetLastModifiedTime(const std::string datasetPath);
 private:
 	mongocxx::instance  m_instance;

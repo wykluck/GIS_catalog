@@ -599,7 +599,7 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 			return false;
 	}
 	
-	auto scaleRatio = 8.0 / GDALGetDataTypeSize(gdalType);
+	auto scaleRatio = 256.0 / exp2(GDALGetDataTypeSize(gdalType));
 	//copy band data into opencv buffer
 	for (auto channelMapPair : channelMapping) {
 

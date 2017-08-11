@@ -10,7 +10,7 @@
 #include "gdal.h"
 
 #ifdef WIN32
-#define stat _stat
+#define stat _stat64
 #endif
 
 extern std::shared_ptr<spdlog::logger> logger;
@@ -23,14 +23,16 @@ Utilities::~Utilities()
 {
 }
 
-time64_t Utilities::GetLastModifiedTime(const std::string& filePath)
+FileStats Utilities::GetFileStats(const std::string& filePath)
 {
 	struct stat result;
+	FileStats fileStats = { 0, 0 };
 	if (stat(filePath.c_str(), &result) == 0)
 	{
-		return result.st_mtime;
+		fileStats.lastModifiedTime = result.st_mtime;
+		fileStats.fileSize = result.st_size;
 	}
-	return 0;
+	return fileStats;
 }
 
 void CPL_STDCALL Utilities::GDALErrorLogger(CPLErr eErrClass, int nError, const char * pszErrorMsg)

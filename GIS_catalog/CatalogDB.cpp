@@ -40,9 +40,11 @@ time64_t CatalogDB::getDatasetLastModifiedTime(const std::string datasetPath)
 		auto lastModifiedTime = maybe_result->view()["lastModifiedTime"];
 		return lastModifiedTime.get_int64();
 	}
+	else
+		return 0;
 }
 
-bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, time64_t lastModifiedTime,  const std::vector<unsigned char>& thumbnailBuffer)
+bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const FileStats& fileStats,  const std::vector<unsigned char>& thumbnailBuffer)
 {
 	auto builder = bsoncxx::builder::stream::document{};
 	auto in_array = builder << "$set" << open_document
@@ -52,7 +54,8 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, time64
 		<< "bandCount" << datasetStruct.bandCount
 		<< "dataTypeSizeInBits" << datasetStruct.dataTypeSizeInBits
 		<< "spatialId" << bsoncxx::types::b_utf8(datasetStruct.spatialId)
-		<< "lastModifiedTime" << lastModifiedTime
+		<< "fileSize" << fileStats.fileSize
+		<< "lastModifiedTime" << fileStats.lastModifiedTime
 		<< "geoTransformParams" << bsoncxx::builder::stream::open_array;
 	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
 		in_array << bsoncxx::types::b_double{ param };

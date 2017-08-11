@@ -99,10 +99,10 @@ NAN_METHOD(UpdateDatasetInfo) {
 					updateStatus.totalDatasetScanned++;
 					try
 					{
-						auto lastModifiedTime = Utilities::GetLastModifiedTime(datasetPath);
+						auto fileStats = Utilities::GetFileStats(datasetPath);
 						if (!s_forceUpdate)
 						{
-							if (s_catalogDB->getDatasetLastModifiedTime(datasetPath) >= lastModifiedTime)
+							if (s_catalogDB->getDatasetLastModifiedTime(datasetPath) >= fileStats.lastModifiedTime)
 							{
 								//if forceUpdate is false and datasetUpdatetime is late than the file's
 								//last_modification_time, just skip without update
@@ -120,7 +120,7 @@ NAN_METHOD(UpdateDatasetInfo) {
 							int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
 							gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
 								thumbnailBuffer);
-							s_catalogDB->InsertOrUpdateDataset(datasetStruct, lastModifiedTime, thumbnailBuffer);
+							s_catalogDB->InsertOrUpdateDataset(datasetStruct, fileStats, thumbnailBuffer);
 							updateStatus.totalDatasetUpdated++;
 						}
 						else

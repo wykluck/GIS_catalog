@@ -1,5 +1,5 @@
-
 *.tlog
+*.log
 **/build
 **/node_modules
 **/.vs
