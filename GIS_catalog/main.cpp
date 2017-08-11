@@ -30,6 +30,15 @@ static bool s_forceUpdate = false;
 
 std::shared_ptr<spdlog::logger> logger;
 
+struct UpdateStatus {
+	int totalDatasetScanned;
+	int totalDatasetUpdated;
+	int totalDatasetSkipped;
+	int totalDatasetFailed;
+};
+
+UpdateStatus updateStatus = { 0, 0, 0, 0};
+
 NAN_METHOD(Init) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
 	//LoadLibrary("C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\NCSEcwd.dll");
@@ -63,6 +72,7 @@ NAN_METHOD(BeginUpdate) {
 	}
 	s_forceUpdate = info[0]->BooleanValue();
 	crawlStatus = QueueProcessStatus::NotStarted;
+	updateStatus = { 0, 0, 0, 0 };
 }
 
 
@@ -86,6 +96,7 @@ NAN_METHOD(UpdateDatasetInfo) {
 			{
 				if (s_datasetPathQueue.try_dequeue(datasetPath))
 				{
+					updateStatus.totalDatasetScanned++;
 					try
 					{
 						auto lastModifiedTime = Utilities::GetLastModifiedTime(datasetPath);
@@ -95,6 +106,7 @@ NAN_METHOD(UpdateDatasetInfo) {
 							{
 								//if forceUpdate is false and datasetUpdatetime is late than the file's
 								//last_modification_time, just skip without update
+								updateStatus.totalDatasetSkipped++;
 								continue;
 							}
 						}
@@ -109,14 +121,17 @@ NAN_METHOD(UpdateDatasetInfo) {
 							gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
 								thumbnailBuffer);
 							s_catalogDB->InsertOrUpdateDataset(datasetStruct, lastModifiedTime, thumbnailBuffer);
+							updateStatus.totalDatasetUpdated++;
 						}
 						else
 						{
+							updateStatus.totalDatasetFailed++;
 							logger->error("Problem occurs when opening dataset at ({0})", datasetPath.c_str());
 						}
 					}
 					catch (std::exception& ex)
 					{
+						updateStatus.totalDatasetFailed++;
 						logger->error("Problem occurs when processing dataset at ({0}) with error ({1}).", datasetPath.c_str(),
 							ex.what());
 					}
@@ -146,6 +161,13 @@ NAN_METHOD(EndUpdate) {
 	for (auto& th : threadVec)
 		th.join();
 	threadVec.clear();
+	//log update status
+	logger->info("Updating dataset finishied with totalDatasetScanned({0}), totalDatasetSkipped({1}), \
+		totalDatasetUpdated({2}), totalDatasetFailed({3}).",
+		updateStatus.totalDatasetScanned, 
+		updateStatus.totalDatasetSkipped,
+		updateStatus.totalDatasetUpdated,
+		updateStatus.totalDatasetFailed);
 	s_forceUpdate = false;
 	return;
 }
