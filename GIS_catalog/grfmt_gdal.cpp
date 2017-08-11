@@ -92,6 +92,7 @@ int  gdalPaletteInterpretation2OpenCV( GDALPaletteInterp const& paletteInterp, G
         default:
             return -1;
 
+
     }
 }
 
@@ -544,7 +545,7 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 {
 	// iterate over each raster band
 	// note that OpenCV does bgr rather than rgb
-	int nChannels = m_dataset->GetRasterCount();
+	int nChannels = m_imageMetadata.bandCount;
 
 	GDALColorTable* gdalColorTable = NULL;
 	if (m_dataset->GetRasterBand(1)->GetColorTable() != NULL) {
@@ -558,11 +559,52 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 	}
 
 	// create a temporary scanline pointer to store data
-	uchar* uBuffer = new uchar[mat.cols * mat.rows];
-	for (int c = 0; c<nChannels; c++) {
+	double* uBuffer = new double[mat.cols * mat.rows];
+
+	//band selection first
+	std::map<int, int> channelMapping;
+	bool isRGBModel = false;
+	const GDALDataType gdalType = m_dataset->GetRasterBand(1)->GetRasterDataType();
+	for (int c = 1; c <= nChannels; c++) {
+		switch (m_dataset->GetRasterBand(c)->GetColorInterpretation())
+		{
+		case GCI_RedBand:
+			channelMapping[c] = 2;
+			isRGBModel = true;
+			break;
+		case GCI_GreenBand:
+			channelMapping[c] = 1;
+			isRGBModel = true;
+			break;
+		case GCI_BlueBand:
+			channelMapping[c] = 0;
+			isRGBModel = true;
+			break;
+		}
+	}
+	if (isRGBModel)
+	{
+		if (channelMapping.size() < 3)//not a complete rgb model
+			return false;
+	}
+	else
+	{
+		//not a rgb model, just use band 1 or (1, 2, 3)
+		for (int c = 1; c <= nChannels; c++) {
+			channelMapping[c] = c - 1;
+			if (channelMapping.size() == 3)
+				break;
+		}
+		if (channelMapping.size() == 2) //can only be 1 channel or 3 channels
+			return false;
+	}
+	
+	auto scaleRatio = 8.0 / GDALGetDataTypeSize(gdalType);
+	//copy band data into opencv buffer
+	for (auto channelMapPair : channelMapping) {
 
 		// get the GDAL Band
-		GDALRasterBand* band = m_dataset->GetRasterBand(c + 1);
+		GDALRasterBand* band = m_dataset->GetRasterBand(channelMapPair.first);
 
 		// make sure the image band has the same dimensions as the image
 		if (band->GetXSize() != m_width || band->GetYSize() != m_height) { return false; }
@@ -571,23 +613,9 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		nRows = band->GetYSize();
 		nCols = band->GetXSize();
 
-		//OpenCV requires the order has to be 'BGR' when reading into a cv::Mat
-		auto targetChannel = c;
-		switch (band->GetColorInterpretation())
-		{
-		case GCI_RedBand:
-			targetChannel = 2;
-			break;
-		case GCI_GreenBand:
-			targetChannel = 1;
-			break;
-		case GCI_BlueBand:
-			targetChannel = 0;
-			break;
-		}
-
 		band->RasterIO(GF_Read, 0, 0, nCols, nRows, uBuffer, mat.cols, mat.rows,
-			GDT_Byte, 0, 0);
+			GDT_Float64, 0, 0);
+
 
 		// iterate over each row and column
 		for (int y = 0; y<mat.rows; y++) {
@@ -595,15 +623,7 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 			// set inside the image
 			for (int x = 0; x<mat.cols; x++) {
 
-				// set depending on image types
-				//   given boost, I would use enable_if to speed up.  Avoid for now.
-				mat.at<Vec3b>(y, x)[c] = uBuffer[y * mat.cols + x];
-				//if (hasColorTable == false) {
-				//	write_pixel(uBuffer[y * mat.cols + x], gdalType, nChannels, mat, y, x, targetChannel);
-				//}
-				//else {
-				//	write_ctable_pixel(uBuffer[y * mat.cols + x], gdalType, gdalColorTable, mat, y, x, targetChannel);
-				//}
+				mat.at<Vec3b>(y, x)[channelMapPair.second] = uBuffer[y * mat.cols + x] * scaleRatio;
 			}
 		}
 	}
@@ -615,9 +635,19 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 
 bool GdalDecoder::generateThumbnail(int width, int height, std::vector<uchar>& thumbnailBuffer)
 {
-	cv::Mat thumbnailMat(width, height, CV_8UC3);
-	readThumbnailData(thumbnailMat);
-	return imencode(".jpg", thumbnailMat, thumbnailBuffer);
+	cv::Mat *pThumbnailMat = nullptr;
+	const GDALDataType gdalType = m_dataset->GetRasterBand(1)->GetRasterDataType();
+	if (m_imageMetadata.bandCount == 1)
+		pThumbnailMat = new cv::Mat(width, height, CV_8UC1);
+	else 
+		pThumbnailMat = new cv::Mat(width, height, CV_8UC3);
+	bool res = false;
+	if (readThumbnailData(*pThumbnailMat))
+	{
+		auto res = imencode(".jpg", *pThumbnailMat, thumbnailBuffer);
+	}
+	delete pThumbnailMat;
+	return res;
 }
 
 
