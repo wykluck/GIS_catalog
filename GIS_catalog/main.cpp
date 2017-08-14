@@ -117,9 +117,12 @@ NAN_METHOD(UpdateDatasetInfo) {
 						{
 							const DatasetStruct& datasetStruct = gdalDecoder.getMetaData();
 							std::vector<uchar> thumbnailBuffer;
-							int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
-							gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
-								thumbnailBuffer);
+							if (datasetStruct.dataTypeSizeInBits <= 16)
+							{
+								int thumbnailRatioScaleRatio = ceil(datasetStruct.width / thumbnailMaxWidth);
+								gdalDecoder.generateThumbnail(datasetStruct.width / thumbnailRatioScaleRatio, datasetStruct.height / thumbnailRatioScaleRatio,
+									thumbnailBuffer);
+							}
 							s_catalogDB->InsertOrUpdateDataset(datasetStruct, fileStats, thumbnailBuffer);
 							updateStatus.totalDatasetUpdated++;
 						}

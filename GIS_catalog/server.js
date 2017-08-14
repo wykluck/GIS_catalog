@@ -23,7 +23,7 @@ app.post('/datasets/metadata', function (req, res) {
 app.get('/datasets/thumbnail/:id', function (req, res) {
     let objectId = new ObjectID(req.params.id);
     datasetCollection.findOne({ _id: objectId }, function (err, doc) {
-        res.contentType('jpeg');
+        res.contentType('png');
         res.end(doc.thumbnail.buffer, 'binary');
     });
 })
