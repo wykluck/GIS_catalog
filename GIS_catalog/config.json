@@ -3,7 +3,7 @@
     "c:\\Datasets", "\\\\lagunas\\data\\Formats"
   ],
   "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ],
-  "scanCronPeriod": "0 */5 * * * *",
+  "scanCronPeriod": "0 */2 * * * *",
   "forceUpdate": false,
   "logFileDirectory": null
 }

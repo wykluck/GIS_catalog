@@ -543,25 +543,12 @@ bool GdalDecoder::readBlockData(int xBlockIndex, int yBlockIndex, Mat& blockImg)
 
 bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 {
-	// iterate over each raster band
-	// note that OpenCV does bgr rather than rgb
-	int bandCount = m_imageMetadata.bandCount;
-
-	GDALColorTable* gdalColorTable = NULL;
-	if (m_dataset->GetRasterBand(1)->GetColorTable() != NULL) {
-		gdalColorTable = m_dataset->GetRasterBand(1)->GetColorTable();
-	}
-
-	int nRows, nCols;
-
-
-
 	//band selection first
 	std::map<int, int> bandMapping;
 	bool isRGBModel = false;
-	bool hasAlphaBand = false;
 	const GDALDataType gdalType = m_dataset->GetRasterBand(1)->GetRasterDataType();
-	for (int c = 1; c <= bandCount; c++) {
+	// note that OpenCV use bgr as band order rather than rgb
+	for (int c = 1; c <= m_imageMetadata.bandCount; c++) {
 		switch (m_dataset->GetRasterBand(c)->GetColorInterpretation())
 		{
 		case GCI_RedBand:
@@ -576,9 +563,8 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 			bandMapping[c] = 0;
 			isRGBModel = true;
 			break;
-		case GCI_AlphaBand:
-			bandMapping[c] = -1;
-			hasAlphaBand = true;
+		case GCI_GrayIndex:
+			bandMapping[c] = c;
 			break;
 		}
 	}
@@ -586,18 +572,11 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 	{
 		if (bandMapping.size() < 3)//not a complete rgb model
 			return false;
-		if (hasAlphaBand)
-		{
-			if (bandMapping.size() <= 3)
-				return false;
-			for (auto bandMapPair : bandMapping)
-				bandMapPair.second++; //convert to band (3, 2, 1, 0)
-		}
 	}
 	else
 	{
 		//not a rgb model, just use band 1 or (1, 2, 3)
-		for (int c = 1; c <= bandCount; c++) {
+		for (int c = 1; c <= m_imageMetadata.bandCount; c++) {
 			bandMapping[c] = c - 1;
 			if (bandMapping.size() == 3)
 				break;
@@ -607,13 +586,6 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 	}
 
 
-	// create a temporary scanline pointer to store data
-	uchar* ucharBuffer = nullptr;
-	unsigned short *ushortBuffer = nullptr;
-	if (gdalType == GDT_Byte)
-		ucharBuffer = new uchar[mat.cols * mat.rows];
-	else
-		ushortBuffer = new ushort[mat.cols * mat.rows];
 	std::vector<cv::Mat> bufferMatVec;
 	
 	//copy band data into opencv buffer
@@ -625,51 +597,44 @@ bool GdalDecoder::readThumbnailData(cv::Mat& mat)
 		// make sure the image band has the same dimensions as the image
 		if (band->GetXSize() != m_width || band->GetYSize() != m_height) { return false; }
 
-		// grab the raster size
-		nRows = band->GetYSize();
-		nCols = band->GetXSize();
-
 		if (gdalType == GDT_Byte)
 		{
-			band->RasterIO(GF_Read, 0, 0, nCols, nRows, ucharBuffer, mat.cols, mat.rows,
+			cv::Mat ucharMat(mat.rows, mat.cols, CV_8UC1);
+			band->RasterIO(GF_Read, 0, 0, band->GetXSize(), band->GetYSize(), ucharMat.data, mat.cols, mat.rows,
 				gdalType, 0, 0);
-			// iterate over each row and column
-			for (int y = 0; y < mat.rows; y++) {
-				// set inside the image
-				for (int x = 0; x < mat.cols; x++) {
-					mat.at<Vec3b>(y, x)[bandMapPair.second] = ucharBuffer[y * mat.cols + x];
-				}
-			}
-			
+			bufferMatVec.push_back(ucharMat);
 		}
 		else
 		{
-			band->RasterIO(GF_Read, 0, 0, nCols, nRows, ushortBuffer, mat.cols, mat.rows,
+			cv::Mat ushortMat(mat.rows, mat.cols, CV_16UC1);
+			band->RasterIO(GF_Read, 0, 0, band->GetXSize(), band->GetYSize(), ushortMat.data, mat.cols, mat.rows,
 				gdalType, 0, 0);
-			bufferMatVec.push_back(cv::Mat(mat.cols, mat.rows, CV_16UC1, ushortBuffer, cv::Mat::AUTO_STEP));
+			bufferMatVec.push_back(ushortMat);
 		}
+		
 	}
 	if (!bufferMatVec.empty())
 	{
-		std::vector<cv::Mat> resMatVec(bufferMatVec.size());
-		std::size_t i = 0;
-		for (auto bufferMat : bufferMatVec)
+		if (gdalType != GDT_Byte)
 		{
-			double min, max;
-			cv::minMaxIdx(bufferMat, &min, &max);
-			if (max != min)
-				bufferMat.convertTo(resMatVec[i], CV_8UC1, 256.0 / (max - min + 1), -min / (max - min + 1));
-			else
-				bufferMat.convertTo(resMatVec[i], CV_8UC1, 255.0 / max);
-			i++;
+			std::vector<cv::Mat> resMatVec(bufferMatVec.size());
+			std::size_t i = 0;
+			for (auto bufferMat : bufferMatVec)
+			{
+				double min, max;
+				cv::minMaxIdx(bufferMat, &min, &max);
+				if (max != min)
+					bufferMat.convertTo(resMatVec[i], CV_8UC1, 256.0 / (max - min + 1), -min / (max - min + 1));
+				else
+					bufferMat.convertTo(resMatVec[i], CV_8UC1, 255.0 / max);
+				i++;
+			}
+			cv::merge(&resMatVec[0], resMatVec.size(), mat);
 		}
-		cv::merge(&resMatVec[0], resMatVec.size(), mat);
+		else
+			cv::merge(&bufferMatVec[0], bufferMatVec.size(), mat);
 	}
-	// delete our temp pointer
-	if (ucharBuffer)
-		delete[] ucharBuffer;
-	if (ushortBuffer)
-		delete[] ushortBuffer;
+	
 	return true;
 }
 
@@ -682,16 +647,16 @@ bool GdalDecoder::generateThumbnail(int width, int height, std::vector<uchar>& t
 		return false;
 	if (m_imageMetadata.bandCount == 1)
 	{
-		pThumbnailMat = new cv::Mat(width, height, CV_8UC1);
+		pThumbnailMat = new cv::Mat(height, width, CV_8UC1);
 	}
 	else
 	{ 
-		pThumbnailMat = new cv::Mat(width, height, CV_8UC3);
+		pThumbnailMat = new cv::Mat(height, height, CV_8UC3);
 	}
 	bool res = false;
 	if (readThumbnailData(*pThumbnailMat))
 	{
-		auto res = imencode(".png", *pThumbnailMat, thumbnailBuffer);
+		auto res = imencode(".jpg", *pThumbnailMat, thumbnailBuffer);
 	}
 	delete pThumbnailMat;
 	return res;
