@@ -853,16 +853,40 @@ bool GdalDecoder::readHeader(){
 		for (auto i = 0; i < 6; i++)
 			m_imageMetadata.geoTransformParams.push_back(geoTransform[i]);
 	}
-	OGRSpatialReference ogr(m_dataset->GetProjectionRef());
-
-	auto authorityName = ogr.GetAuthorityName("PROJCS");
-	if (authorityName != NULL)
+	else 
 	{
-		auto authorityCode = ogr.GetAuthorityCode("PROJCS");
-		m_imageMetadata.spatialId.append(authorityName).append(":")
-			.append(authorityCode);
+		auto gcps = m_dataset->GetGCPs();
+		auto gcpCount = m_dataset->GetGCPCount();
+		if (GDALGCPsToGeoTransform(gcpCount, gcps, geoTransform, true) == TRUE)
+		{
+			for (auto i = 0; i < 6; i++)
+				m_imageMetadata.geoTransformParams.push_back(geoTransform[i]);
+		}
 	}
-
+	const char* projectionWKT = m_dataset->GetProjectionRef();
+	OGRSpatialReference ogr(projectionWKT);
+	ogr.Fixup();
+	OGRErr ogrErr = ogr.AutoIdentifyEPSG();
+	if (ogr.IsProjected())
+	{
+		auto authorityName = ogr.GetAuthorityName("PROJCS");
+		if (authorityName != NULL)
+		{
+			auto authorityCode = ogr.GetAuthorityCode("PROJCS");
+			m_imageMetadata.spatialId.append(authorityName).append(":")
+				.append(authorityCode);
+		}
+	}
+	else if (ogr.IsGeographic())
+	{
+		auto authorityName = ogr.GetAuthorityName("GEOGCS");
+		if (authorityName != NULL)
+		{
+			auto authorityCode = ogr.GetAuthorityCode("GEOGCS");
+			m_imageMetadata.spatialId.append(authorityName).append(":")
+				.append(authorityCode);
+		}
+	}
     return true;
 }
 
