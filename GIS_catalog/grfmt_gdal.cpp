@@ -867,6 +867,7 @@ bool GdalDecoder::readHeader(){
 	OGRSpatialReference ogr(projectionWKT);
 	ogr.Fixup();
 	OGRErr ogrErr = ogr.AutoIdentifyEPSG();
+	m_imageMetadata.units = "Unknown";
 	if (ogr.IsProjected())
 	{
 		auto authorityName = ogr.GetAuthorityName("PROJCS");
@@ -875,6 +876,12 @@ bool GdalDecoder::readHeader(){
 			auto authorityCode = ogr.GetAuthorityCode("PROJCS");
 			m_imageMetadata.spatialId.append(authorityName).append(":")
 				.append(authorityCode);
+		}
+		if (ogr.GetLinearUnits() < 1.0) {
+			m_imageMetadata.units = "Feet";
+		}
+		else {
+			m_imageMetadata.units = "Meters";
 		}
 	}
 	else if (ogr.IsGeographic())
@@ -886,7 +893,40 @@ bool GdalDecoder::readHeader(){
 			m_imageMetadata.spatialId.append(authorityName).append(":")
 				.append(authorityCode);
 		}
+		m_imageMetadata.units = "Degrees";
 	}
+	//calculate the native boundingbox.
+	if (!m_imageMetadata.geoTransformParams.empty())
+	{
+		std::vector<cv::Point2i> fourCornerVec =
+		{ {0, 0}, {m_width - 1, 0}, {0, m_height - 1}, {m_width - 1, m_height - 1} };
+		m_imageMetadata.nativeBoundingBoxVec = { std::numeric_limits<double>::max() ,
+			std::numeric_limits<double>::max() ,
+			std::numeric_limits<double>::lowest(),
+			std::numeric_limits<double>::lowest() };
+		for (auto cornerPoint : fourCornerVec)
+		{
+			double x = geoTransform[0] + cornerPoint.x *geoTransform[1] + cornerPoint.y * geoTransform[2];
+			double y = geoTransform[3] + cornerPoint.x *geoTransform[4] + cornerPoint.y * geoTransform[5];
+			if (x < m_imageMetadata.nativeBoundingBoxVec[0])
+			{
+				m_imageMetadata.nativeBoundingBoxVec[0] = x;
+			}
+			if (y < m_imageMetadata.nativeBoundingBoxVec[1])
+			{
+				m_imageMetadata.nativeBoundingBoxVec[1] = y;
+			}
+			if (x > m_imageMetadata.nativeBoundingBoxVec[2])
+			{
+				m_imageMetadata.nativeBoundingBoxVec[2] = x;
+			}
+			if (y > m_imageMetadata.nativeBoundingBoxVec[3])
+			{
+				m_imageMetadata.nativeBoundingBoxVec[3] = y;
+			}
+		}
+	}
+
     return true;
 }
 

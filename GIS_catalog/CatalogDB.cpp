@@ -54,6 +54,7 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		<< "bandCount" << datasetStruct.bandCount
 		<< "dataTypeSizeInBits" << datasetStruct.dataTypeSizeInBits
 		<< "spatialId" << bsoncxx::types::b_utf8(datasetStruct.spatialId)
+		<< "units" << bsoncxx::types::b_utf8(datasetStruct.units)
 		<< "fileSize" << fileStats.fileSize
 		<< "lastModifiedTime" << fileStats.lastModifiedTime
 		<< "geoTransformParams" << bsoncxx::builder::stream::open_array;
@@ -61,6 +62,15 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		in_array << bsoncxx::types::b_double{ param };
 	});
 	auto closed_array = in_array << bsoncxx::builder::stream::close_array;
+	if (!datasetStruct.nativeBoundingBoxVec.empty())
+	{
+		closed_array << "nativeBoundingBox" << open_document
+			<< "minx" << datasetStruct.nativeBoundingBoxVec[0]
+			<< "miny" << datasetStruct.nativeBoundingBoxVec[1]
+			<< "maxx" << datasetStruct.nativeBoundingBoxVec[2]
+			<< "maxy" << datasetStruct.nativeBoundingBoxVec[3]
+			<< close_document;
+	}
 	if (!thumbnailBuffer.empty())
 	{
 		bsoncxx::types::b_binary thumbnailBinary;
@@ -68,7 +78,7 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		thumbnailBinary.bytes = thumbnailBuffer.data();
 		thumbnailBinary.size = thumbnailBuffer.size();
 		closed_array << "thumbnail" << thumbnailBinary;
-	}
+	}	
 	auto docValue = closed_array << close_document;
 	auto connection = m_pool.acquire();
 	auto datasetCollection = (*connection)["CatalogDB"]["Dataset"];
