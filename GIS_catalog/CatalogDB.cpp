@@ -44,10 +44,24 @@ time64_t CatalogDB::getDatasetLastModifiedTime(const std::string datasetPath)
 		return 0;
 }
 
+void InsertPolygon(const std::string& polygonName, const std::vector<cv::Point2d>& polygon, bsoncxx::builder::stream::key_context< bsoncxx::builder::stream::key_context<> >& previousContext )
+{
+	document polygonDoc;
+	auto tempArr = polygonDoc << "type" << bsoncxx::types::b_utf8("Polygon")
+		<< "coordinates" << bsoncxx::builder::stream::open_array;
+	for (auto const& point : polygon)
+	{
+		tempArr << bsoncxx::builder::stream::open_array
+			<< bsoncxx::types::b_double{ point.x } << bsoncxx::types::b_double{ point.y } << bsoncxx::builder::stream::close_array;
+	}
+	tempArr << bsoncxx::builder::stream::close_array;
+	previousContext << polygonName << polygonDoc;
+}
+
 bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const FileStats& fileStats,  const std::vector<unsigned char>& thumbnailBuffer)
 {
-	auto builder = bsoncxx::builder::stream::document{};
-	auto in_array = builder << "$set" << open_document
+	auto builder = document{};
+	auto documentStream = builder << "$set" << open_document
 		<< "filePath" << bsoncxx::types::b_utf8(datasetStruct.datasetPath)
 		<< "width" << datasetStruct.width
 		<< "height" << datasetStruct.height
@@ -56,30 +70,40 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 		<< "spatialId" << bsoncxx::types::b_utf8(datasetStruct.spatialId)
 		<< "units" << bsoncxx::types::b_utf8(datasetStruct.units)
 		<< "fileSize" << fileStats.fileSize
-		<< "lastModifiedTime" << fileStats.lastModifiedTime
-		<< "geoTransformParams" << bsoncxx::builder::stream::open_array;
-	std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
-		in_array << bsoncxx::types::b_double{ param };
-	});
-	auto closed_array = in_array << bsoncxx::builder::stream::close_array;
-	if (!datasetStruct.nativeBoundingBoxVec.empty())
+		<< "lastModifiedTime" << fileStats.lastModifiedTime;
+	if (!datasetStruct.geoTransformParams.empty())
 	{
-		closed_array << "nativeBoundingBox" << open_document
-			<< "minx" << datasetStruct.nativeBoundingBoxVec[0]
-			<< "miny" << datasetStruct.nativeBoundingBoxVec[1]
-			<< "maxx" << datasetStruct.nativeBoundingBoxVec[2]
-			<< "maxy" << datasetStruct.nativeBoundingBoxVec[3]
-			<< close_document;
+		bsoncxx::builder::stream::array geoTransformArray;
+
+		std::for_each(datasetStruct.geoTransformParams.begin(), datasetStruct.geoTransformParams.end(), [&](double param) {
+			geoTransformArray << bsoncxx::types::b_double{ param };
+		});
+		documentStream << "geoTransformParams" << geoTransformArray;
 	}
+
+	if (!datasetStruct.nativeBoundPolygon.empty())
+	{
+		InsertPolygon("nativeBoundPolygon", datasetStruct.geodeticBoundPolygon, documentStream);
+	}
+	if (!datasetStruct.geodeticBoundPolygon.empty())
+	{
+		InsertPolygon("geodeticBoundPolygon", datasetStruct.geodeticBoundPolygon, documentStream);
+	}
+	if (!datasetStruct.googleBoundPolygon.empty())
+	{
+		InsertPolygon("googleBoundPolygon", datasetStruct.googleBoundPolygon, documentStream);
+	}
+	
 	if (!thumbnailBuffer.empty())
 	{
 		bsoncxx::types::b_binary thumbnailBinary;
 		thumbnailBinary.sub_type = bsoncxx::binary_sub_type::k_binary;
 		thumbnailBinary.bytes = thumbnailBuffer.data();
 		thumbnailBinary.size = thumbnailBuffer.size();
-		closed_array << "thumbnail" << thumbnailBinary;
-	}	
-	auto docValue = closed_array << close_document;
+		documentStream << "thumbnail" << thumbnailBinary;
+	}
+	
+	auto docValue = documentStream << close_document;
 	auto connection = m_pool.acquire();
 	auto datasetCollection = (*connection)["CatalogDB"]["Dataset"];
 	mongocxx::options::update updateOptions;

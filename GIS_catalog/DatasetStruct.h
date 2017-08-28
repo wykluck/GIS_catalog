@@ -13,6 +13,8 @@ struct DatasetStruct {
 	std::string datasetPath;
 	std::string spatialId;
 	std::vector<double> geoTransformParams;
-	std::vector<double> nativeBoundingBoxVec; //follow in minx, miny, maxx, maxy order
+	std::vector<cv::Point2d> nativeBoundPolygon; 
+	std::vector<cv::Point2d> geodeticBoundPolygon;
+	std::vector<cv::Point2d> googleBoundPolygon;
 	std::string units;
 };

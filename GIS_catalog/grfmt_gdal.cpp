@@ -626,6 +626,40 @@ bool GdalDecoder::readData( Mat& img ){
 }
 
 
+bool transformPolygon(OGRSpatialReference& sourceOgr, int targetEPSG, 
+	const std::vector<cv::Point2d>& sourcePolygon, std::vector<cv::Point2d>& targetPolygon)
+{
+	//TODO: need to figure out what if the transformation is not linear piecewise
+	OGRSpatialReference targetOGR;
+	targetOGR.importFromEPSG(targetEPSG);
+
+	OGRCoordinateTransformation* pTransform = OGRCreateCoordinateTransformation(&sourceOgr, &targetOGR);
+	if (pTransform != nullptr)
+	{
+		std::vector<double> xVec, yVec;
+		std::vector<int> abSucessVec;
+		for (auto const& point : sourcePolygon)
+		{
+			xVec.push_back(point.x);
+			yVec.push_back(point.y);
+			abSucessVec.push_back(0);
+		}
+		pTransform->TransformEx(xVec.size(), &xVec[0], &yVec[0], NULL, &abSucessVec[0]);
+		//check if all of the transform are successfull
+		for (auto bSuccess : abSucessVec)
+		{
+			if (!bSuccess)
+			{
+				return false;
+			}
+		}
+		for (auto i = 0; i < xVec.size(); i++)
+			targetPolygon.push_back({ xVec[i], yVec[i] });
+		return true;
+	}
+	return false;
+}
+
 /**
  * Read image header
 */
@@ -779,31 +813,18 @@ bool GdalDecoder::readHeader(){
 	{
 		std::vector<cv::Point2i> fourCornerVec =
 		{ {0, 0}, {m_width - 1, 0}, {0, m_height - 1}, {m_width - 1, m_height - 1} };
-		m_imageMetadata.nativeBoundingBoxVec = { std::numeric_limits<double>::max() ,
-			std::numeric_limits<double>::max() ,
-			std::numeric_limits<double>::lowest(),
-			std::numeric_limits<double>::lowest() };
+
 		for (auto cornerPoint : fourCornerVec)
 		{
 			double x = geoTransform[0] + cornerPoint.x *geoTransform[1] + cornerPoint.y * geoTransform[2];
 			double y = geoTransform[3] + cornerPoint.x *geoTransform[4] + cornerPoint.y * geoTransform[5];
-			if (x < m_imageMetadata.nativeBoundingBoxVec[0])
-			{
-				m_imageMetadata.nativeBoundingBoxVec[0] = x;
-			}
-			if (y < m_imageMetadata.nativeBoundingBoxVec[1])
-			{
-				m_imageMetadata.nativeBoundingBoxVec[1] = y;
-			}
-			if (x > m_imageMetadata.nativeBoundingBoxVec[2])
-			{
-				m_imageMetadata.nativeBoundingBoxVec[2] = x;
-			}
-			if (y > m_imageMetadata.nativeBoundingBoxVec[3])
-			{
-				m_imageMetadata.nativeBoundingBoxVec[3] = y;
-			}
+			m_imageMetadata.nativeBoundPolygon.push_back({ x, y });
 		}
+		//close the polygon
+		m_imageMetadata.nativeBoundPolygon.push_back(m_imageMetadata.nativeBoundPolygon[0]);
+
+		transformPolygon(ogr, 4326, m_imageMetadata.nativeBoundPolygon, m_imageMetadata.geodeticBoundPolygon);
+		transformPolygon(ogr, 3857, m_imageMetadata.nativeBoundPolygon, m_imageMetadata.googleBoundPolygon);
 	}
 
     return true;
