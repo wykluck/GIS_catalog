@@ -11,6 +11,7 @@
         "grfmt_base.hpp",
         "grfmt_gdal.cpp",
         "grfmt_gdal.hpp",
+        "grfmt_gdalthumbnail.cpp",
         "Utilities.h",
         "Utilities.cpp"
       ],
