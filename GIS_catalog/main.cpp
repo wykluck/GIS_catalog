@@ -8,6 +8,7 @@
 #include "CatalogDB.h"
 #include "Utilities.h"
 #include "spdlog/spdlog.h"
+#include <proj_api.h>
 #include <nan.h>
 
 static moodycamel::ConcurrentQueue<std::string> s_datasetPathQueue;
@@ -38,6 +39,7 @@ struct UpdateStatus {
 };
 
 UpdateStatus updateStatus = { 0, 0, 0, 0};
+projPJ pj_merc, pj_latlong;
 
 NAN_METHOD(Init) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
@@ -57,7 +59,7 @@ NAN_METHOD(Init) {
 	v8::String::Utf8Value temp(info[0]);
 	std::string logFilePath = *temp;
 
-	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
+	std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	// Create a file rotating logger with 5mb size max and 3 rotated files
 	logger = spdlog::rotating_logger_mt("rotate_logger", logFilePath, 1048576 * 5, 3);
 	logger->flush_on(spdlog::level::info);
@@ -66,13 +68,28 @@ NAN_METHOD(Init) {
 	v8::String::Utf8Value tempGdalDataPath(info[1]);
 	std::string gdalDataPath = *tempGdalDataPath;
 	CPLSetConfigOption("GDAL_DATA", gdalDataPath.c_str());
+
+	//make sure proj4 dll is shipped to the same directory with the addon
+	projPJ pj_merc;
+	if (!(pj_merc = pj_init_plus("+proj=merc +ellps=clrk66 +lat_ts=33")))
+		exit(1);
+	char proj4PathStr[2048];
+	proj4PathStr[0] = '\0';
+#ifdef WIN32
+#ifdef DEBUG
+	HMODULE hModule = GetModuleHandle("proj_4_9_d.dll");
+#else
+	HMODULE hModule = GetModuleHandle("proj_4_9.dll");
+#endif	
+	GetModuleFileName(hModule, proj4PathStr, 2048);
+#else
+#error "Get current module path is not implemented in the platform!"
+#endif
+
+	CPLSetConfigOption("PROJSO", proj4PathStr);
 	GDALAllRegister();
 	CPLSetErrorHandler(&Utilities::GDALErrorLogger);
 
-	
-#ifdef WIN32
-	//SetDllDirectory()
-#endif
 	
 }
 

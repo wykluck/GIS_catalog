@@ -7811,3 +7811,12 @@ directory containing EPSG csv files.
 Try setting the GDAL_DATA environment variable to point to the
 directory containing EPSG csv files.
 [2017-08-29 16:43:18.930] [rotate_logger] [error] GDAL ERROR: No translation for an empty SRS to PROJ.4 format is known.
+[2017-08-29 22:27:27.429] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-29 22:34:02.937] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(12), totalDatasetSkipped(12), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-29 22:35:46.315] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-29 22:36:50.725] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-29 22:39:31.216] [rotate_logger] [info] Connected to the database successfully.
+

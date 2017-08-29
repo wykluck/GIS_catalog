@@ -26,7 +26,7 @@ readConfig.then((configObj) => {
     }
     else
         logFilePath = process.cwd() + path.sep + "logs";
-    let gdalDataPath = process.cwd() + path.sep + "gdal_data" + path.seq;
+    let gdalDataPath = process.cwd() + path.sep + "gdal_data" + path.sep;
     mkdirp.sync(logFilePath);
     logFilePath += path.sep + "UpdateDataset.log";
 
