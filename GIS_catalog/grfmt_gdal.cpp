@@ -781,6 +781,7 @@ bool GdalDecoder::readHeader(){
 	ogr.Fixup();
 	OGRErr ogrErr = ogr.AutoIdentifyEPSG();
 	m_imageMetadata.units = "Unknown";
+
 	if (ogr.IsProjected())
 	{
 		auto authorityName = ogr.GetAuthorityName("PROJCS");

@@ -43,10 +43,15 @@ NAN_METHOD(Init) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
 	//LoadLibrary("C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\NCSEcwd.dll");
 	//CPLSetConfigOption("GDAL_DRIVER_PATH", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\Debug\\gdalplugins");
-	//CPLSetConfigOption("GDAL_DATA", "C:\\Users\\ywang\\Documents\\Visual Studio 2015\\Projects\\GIS_catalog\\GIS_catalog\\build\\data");
+	
 	if (!info[0]->IsString())
 	{
 		Nan::ThrowTypeError("Wrong arguments at logFilePath");
+		return;
+	}
+	if (!info[1]->IsString())
+	{
+		Nan::ThrowTypeError("Wrong arguments at gdalDataPath");
 		return;
 	}
 	v8::String::Utf8Value temp(info[0]);
@@ -55,12 +60,19 @@ NAN_METHOD(Init) {
 	//std::this_thread::sleep_for(std::chrono::milliseconds(14000));
 	// Create a file rotating logger with 5mb size max and 3 rotated files
 	logger = spdlog::rotating_logger_mt("rotate_logger", logFilePath, 1048576 * 5, 3);
-	GDALAllRegister();
-	CPLSetErrorHandler(&Utilities::GDALErrorLogger);
-	//CPLSetConfigOption("CPL_LOG", logFilePath.c_str());
 	logger->flush_on(spdlog::level::info);
 	s_catalogDB = new CatalogDB(logger);
 	
+	v8::String::Utf8Value tempGdalDataPath(info[1]);
+	std::string gdalDataPath = *tempGdalDataPath;
+	CPLSetConfigOption("GDAL_DATA", gdalDataPath.c_str());
+	GDALAllRegister();
+	CPLSetErrorHandler(&Utilities::GDALErrorLogger);
+
+	
+#ifdef WIN32
+	//SetDllDirectory()
+#endif
 	
 }
 

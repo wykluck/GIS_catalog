@@ -44,18 +44,19 @@ time64_t CatalogDB::getDatasetLastModifiedTime(const std::string datasetPath)
 		return 0;
 }
 
-void InsertPolygon(const std::string& polygonName, const std::vector<cv::Point2d>& polygon, bsoncxx::builder::stream::key_context< bsoncxx::builder::stream::key_context<> >& previousContext )
+void InsertPolygon(std::string polygonName, const std::vector<cv::Point2d>& polygon, bsoncxx::builder::stream::key_context< bsoncxx::builder::stream::key_context<> >& previousContext )
 {
 	document polygonDoc;
-	auto tempArr = polygonDoc << "type" << bsoncxx::types::b_utf8("Polygon")
-		<< "coordinates" << bsoncxx::builder::stream::open_array;
+	bsoncxx::builder::stream::array coordinatesArray;
+
+	polygonDoc << "type" << bsoncxx::types::b_utf8("Polygon");
 	for (auto const& point : polygon)
 	{
-		tempArr << bsoncxx::builder::stream::open_array
+		coordinatesArray << bsoncxx::builder::stream::open_array
 			<< bsoncxx::types::b_double{ point.x } << bsoncxx::types::b_double{ point.y } << bsoncxx::builder::stream::close_array;
 	}
-	tempArr << bsoncxx::builder::stream::close_array;
-	previousContext << polygonName << polygonDoc;
+	polygonDoc  << "coordinates" << coordinatesArray;
+	previousContext << bsoncxx::types::b_utf8{ polygonName } << polygonDoc;
 }
 
 bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const FileStats& fileStats,  const std::vector<unsigned char>& thumbnailBuffer)
@@ -83,7 +84,7 @@ bool CatalogDB::InsertOrUpdateDataset(const DatasetStruct& datasetStruct, const 
 
 	if (!datasetStruct.nativeBoundPolygon.empty())
 	{
-		InsertPolygon("nativeBoundPolygon", datasetStruct.geodeticBoundPolygon, documentStream);
+		InsertPolygon("nativeBoundPolygon", datasetStruct.nativeBoundPolygon, documentStream);
 	}
 	if (!datasetStruct.geodeticBoundPolygon.empty())
 	{

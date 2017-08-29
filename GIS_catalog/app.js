@@ -26,9 +26,11 @@ readConfig.then((configObj) => {
     }
     else
         logFilePath = process.cwd() + path.sep + "logs";
+    let gdalDataPath = process.cwd() + path.sep + "gdal_data" + path.seq;
     mkdirp.sync(logFilePath);
     logFilePath += path.sep + "UpdateDataset.log";
-    gdal_binding.Init(logFilePath);
+
+    gdal_binding.Init(logFilePath, gdalDataPath);
     var job = new CronJob({
         cronTime: configObj.scanCronPeriod,
         onTick: function () {
