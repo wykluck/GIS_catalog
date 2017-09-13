@@ -15,30 +15,30 @@
 	<link href="/assets/favicon.ico" rel="shortcut icon" />
 </head>
 <body>
-	<script src="./common/views/googlemap.js" type="text/javascript"></script>
+	<script src="./common/views/openmap.js" type="text/javascript"></script>
 <style>
 	body{
 		background: #F2EFEA;
 	}
-	div.country_flag{
+	div.dataset_image{
 		width: 120px;
 		float: left;
 	}
 
-	div.country_flag img{
+	div.dataset_image img{
 		border: none;
 	}
 	.webix_layout_space, .webix_layout_wide, .webix_layout_accordion{
 		background: url(common/bg.jpg);
 	}
 
-	div.country_info span{
+	div.dataset_info span{
 		display: block;
 		width: 64px;
 		font-weight: bold;
 		float: left;
 	}
-	.country_info, .country_flag{
+	.dataset_info, .dataset_image{
 		padding:8px;
 		line-height: 21px;
 	}
@@ -53,14 +53,14 @@
 webix.skin.air.layoutPadding.space = 12;
 webix.skin.air.layoutMargin.space = 12;
 
-var countries_table = {
-	id:"countries",
+var datasets_table = {
+	id:"datasets",
 	view:"list",
 	template:"html->data_template",
 
 	select:true,
-	on:{ "onafterselect":country_selected },
-	type:{ height: 102 },
+	on:{ "onafterselect":dataset_selected },
+	type:{ height: 120 },
 	ready:function(){  //select USA
 		//this.select(6);
 	}
@@ -71,7 +71,7 @@ var tabbar = { view:'tabview',  gravity: 3,
 		{ value: 'Map', id: 'map'}
 	]},
 	cells:[
-		{ id:"map", view:"google-map"}
+		{ id:"map", view:"open-map", zoom: 6, center:[ 48.724, 8.215 ]}
 	]
 };
 
@@ -84,8 +84,8 @@ webix.ready(function(){
 		type:"space", cols:[
 			{
 				width: 400, css:"bigHeader",
-				header:"Countries", headerHeight:45,
-				body: countries_table
+				header:"Datasets", headerHeight:45,
+				body: datasets_table
 			}, 
 			{ view:"resizer" },
 			{ margin:10, rows:[
@@ -105,18 +105,17 @@ webix.ready(function(){
 	webix.ui({ rows:[
 		appui
 	]});
-	//$$("countries").load();
 	var result = webix.ajax().post("http://localhost:8086/datasets/metadata", "", function (text) {
-	  $$("countries").parse(text);
+	  $$("datasets").parse(text);
 	});
-	$$("dsc").bind($$('countries'));
+	$$("dsc").bind($$('datasets'));
 });
 
 
 	
 /*! item in list selected*/
-function country_selected(id) {
-	var item = $$("countries").getItem(id);
+function dataset_selected(id) {
+	var item = $$("datasets").getItem(id);
 	if (!item.hasOwnProperty("geodeticBoundPolygon"))
 	{
 		console.log("The data is not geo referenced!");
@@ -133,18 +132,7 @@ function country_selected(id) {
 	}
 	latAvg = latSum / 4;
 	//show position on map
-	show_position(latAvg, longAvg, 5);
-}
-
-function show_position(lat, lng, zoom) {
-	if (window.google){ //google api is ready
-		var myLatlng = new google.maps.LatLng(lat, lng);
-		$$('map').map.setOptions({
-			zoom: zoom,
-			center: myLatlng,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		});
-	}
+	$$('map').center_setter({lon: longAvg, lat: latAvg});
 }
 
 webix.DataDriver.legacy = webix.extend({
@@ -161,13 +149,14 @@ webix.DataDriver.legacy = webix.extend({
 
 </script>
 	<div id="data_template" style='display:none'>
-		<div class='country_flag'>
+		<div class='dataset_image'>
 			<img src='#thumbnailUrl#' style="max-height: 100px; max-width: 100px; width: auto; height: auto;"/>
 		</div>
-		<div class='country_info'>
+		<div class='dataset_info'>
 			<div><span>FilePath:</span>#filePath#</div>
-			<div><span>Width:</span>#width#</div>
-			<div><span>Height:</span>#height#</div>
+			<div><span>Size:</span>(w)#width#,(h)#height#</div>
+			<div><span>Bands:</span>#bandCount#</div>
+			<div><span>BitType:<span>#dataTypeSizeInBits#</div>
 		</div>
 	</div>
 	
