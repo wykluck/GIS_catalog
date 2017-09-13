@@ -1,6 +1,6 @@
 ﻿{
   "catalogBaseDirs": [
-    "c:\\Datasets", "\\\\lagunas\\data\\Formats"
+    "c:\\Datasets"
   ],
   "formatExtensions": [ ".img", ".tiff", ".tif", ".nitf" ],
   "scanCronPeriod": "0 */2 * * * *",

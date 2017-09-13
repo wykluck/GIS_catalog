@@ -39,7 +39,6 @@ struct UpdateStatus {
 };
 
 UpdateStatus updateStatus = { 0, 0, 0, 0};
-projPJ pj_merc, pj_latlong;
 
 NAN_METHOD(Init) {
 	//TODO: GDAL plugin dir and data dir should be passed, disable it for now
@@ -70,6 +69,7 @@ NAN_METHOD(Init) {
 	CPLSetConfigOption("GDAL_DATA", gdalDataPath.c_str());
 
 	//make sure proj4 dll is shipped to the same directory with the addon
+	
 	projPJ pj_merc;
 	if (!(pj_merc = pj_init_plus("+proj=merc +ellps=clrk66 +lat_ts=33")))
 		exit(1);
@@ -85,7 +85,7 @@ NAN_METHOD(Init) {
 #else
 #error "Get current module path is not implemented in the platform!"
 #endif
-
+	
 	CPLSetConfigOption("PROJSO", proj4PathStr);
 	GDALAllRegister();
 	CPLSetErrorHandler(&Utilities::GDALErrorLogger);

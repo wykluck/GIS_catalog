@@ -7820,3 +7820,666 @@ directory containing EPSG csv files.
 
 [2017-08-29 22:39:31.216] [rotate_logger] [info] Connected to the database successfully.
 
+[2017-08-30 10:02:36.904] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-30 10:52:23.038] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-30 10:56:50.031] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-08-30 10:56:50.031] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-08-30 10:57:35.338] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 10:57:35.363] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 10:57:37.809] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 10:57:37.810] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 10:59:47.509] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\ADS\L1_Batemans_10cm_2010_04_09_00_31_RGBN00A_002_0_1N.tif' not recognised as a supported file format.
+
+[2017-08-30 10:59:47.509] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\ADS\L1_Batemans_10cm_2010_04_09_00_31_RGBN00A_002_0_1N.tif)
+[2017-08-30 10:59:47.719] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 10:59:47.720] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:14.201] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:14.202] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:14.563] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:14.564] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:22.340] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:22.342] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:24.499] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:24.500] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:00:25.758] [rotate_logger] [warning] GDAL WARNING: TIFFFetchNormalTag:ASCII value for tag "DateTime" contains null byte in value; value incorrectly truncated during reading due to implementation limitations
+[2017-08-30 11:02:02.857] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1001\TPIZ0101\TPIZ0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 11:02:02.857] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1001\TPIZ0101\TPIZ0101.IMG)
+[2017-08-30 11:02:02.938] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1030\TPUS0101\TPUS0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 11:02:02.939] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1030\TPUS0101\TPUS0101.IMG)
+[2017-08-30 11:02:03.034] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 11:02:03.035] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0101.IMG)
+[2017-08-30 11:02:03.092] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0102.IMG' not recognised as a supported file format.
+
+[2017-08-30 11:02:03.093] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0102.IMG)
+[2017-08-30 11:02:03.304] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:03.551] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:05.454] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:07.269] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:09.064] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:11.197] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:13.636] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:15.436] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:17.379] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:19.360] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:21.261] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:23.301] [rotate_logger] [error] GDAL ERROR: ISO8211 record leader appears to be corrupt.
+[2017-08-30 11:02:25.165] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc04.c.img' not recognised as a supported file format.
+
+[2017-08-30 11:02:25.166] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc04.c.img)
+[2017-08-30 11:02:25.208] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc05.c.img' not recognised as a supported file format.
+
+[2017-08-30 11:02:25.208] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc05.c.img)
+[2017-08-30 11:02:26.122] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\junk\junkimg.img' not recognised as a supported file format.
+
+[2017-08-30 11:02:26.122] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\junk\junkimg.img)
+[2017-08-30 11:02:26.154] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\junk\junktif.tif' not recognised as a supported file format.
+
+[2017-08-30 11:02:26.155] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\junk\junktif.tif)
+[2017-08-30 11:02:26.807] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:26.809] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:26.941] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:26.942] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.046] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.047] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.232] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.233] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.307] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.308] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.384] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.385] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.444] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.446] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.527] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.528] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.707] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:02:27.708] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.552] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.554] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.627] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.629] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.725] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.727] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.780] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.782] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.850] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:02.852] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:03:09.128] [rotate_logger] [warning] GDAL WARNING: TIFFFetchNormalTag:ASCII value for tag "DateTime" contains null byte in value; value incorrectly truncated during reading due to implementation limitations
+[2017-08-30 11:03:12.044] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:12.393] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:12.737] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:13.033] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:13.378] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:13.716] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:14.030] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:14.436] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:14.762] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:15.087] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:15.411] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:15.737] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:16.054] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:16.387] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:16.724] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:17.064] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:17.376] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:17.673] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:18.039] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:18.358] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:18.691] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:19.005] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:19.304] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:19.614] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:19.928] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:20.269] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:20.610] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:20.921] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:21.225] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:21.561] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:21.869] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:22.179] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:22.496] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:22.813] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:23.136] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:23.466] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:23.810] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:24.142] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:24.424] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:24.735] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:25.024] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:25.362] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:25.656] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:25.923] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:26.227] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:26.558] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:26.881] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:27.167] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:27.477] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:27.800] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:28.112] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:28.448] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:28.808] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:29.132] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:29.455] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:29.766] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:30.065] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:30.507] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:30.845] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:31.175] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:31.506] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:31.810] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:32.120] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:32.605] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:32.957] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:33.298] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:33.638] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:33.976] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:34.337] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:34.669] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:34.977] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:03:35.285] [rotate_logger] [warning] GDAL WARNING: RowsPerStrip not defined ... assuming all one strip.
+[2017-08-30 11:05:11.650] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:11.651] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:11.893] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:11.895] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.150] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.151] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.381] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.383] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.631] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.633] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.856] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:12.858] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.040] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.041] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.281] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.282] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.809] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:15.810] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:18.143] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:18.144] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:18.931] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:18.933] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.111] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.113] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.268] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.270] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.433] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.434] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:19.747] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:20.173] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:23.263] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:23.265] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:23.416] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:23.418] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.301] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.302] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.402] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.404] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.545] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.546] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.712] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:26.714] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:27.329] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:27.330] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:29.662] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:29.663] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.557] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.558] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.719] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.720] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.984] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:30.986] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:31.183] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:31.184] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:31.335] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:31.336] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:32.715] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:32.716] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:33.159] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:33.161] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:34.816] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:34.817] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:35.470] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:35.471] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:35.786] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:35.787] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:36.605] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:36.606] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:37.343] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:05:37.344] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:55.540] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:55.551] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:57.173] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:57.174] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:58.717] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:13:58.718] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:40.237] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:40.238] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:40.412] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:40.413] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:58.730] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:14:58.731] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:09.961] [rotate_logger] [error] GDAL ERROR: \\lagunas\data\Formats\Tiff\MultipleImages\MultipleFormats.tif:ISO JBIG compression support is not configured
+[2017-08-30 11:16:13.203] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:13.205] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:23.919] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:23.920] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:29.779] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:29.781] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:39.952] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:39.954] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:50.384] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:50.385] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:54.786] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:16:54.787] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:05.912] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:05.913] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:06.747] [rotate_logger] [error] GDAL ERROR: \\lagunas\data\Formats\Worldview2\052310429160_01\052310429160_01_P001_PAN\10JAN19161609-P1BS-052310429160_01_P001.TIF:Failed to allocate memory for to read TIFF directory (0 elements of 12 bytes each)
+[2017-08-30 11:17:06.747] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 991653864
+[2017-08-30 11:17:06.748] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Worldview2\052310429160_01\052310429160_01_P001_PAN\10JAN19161609-P1BS-052310429160_01_P001.TIF)
+[2017-08-30 11:17:06.814] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:06.815] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:08.032] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:08.034] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:13.194] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:13.195] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:13.691] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:13.692] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:14.263] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:14.264] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:23.806] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 11:17:23.808] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:00:44.780] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:00:44.781] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:00:52.983] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:00:52.984] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:01.472] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:01.473] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:06.461] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:06.462] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:14.904] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:14.906] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:23.483] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:01:23.485] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:04:54.381] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:04:54.383] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:04:55.218] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:04:55.219] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:29.438] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:29.439] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:31.289] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:31.291] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:33.018] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:33.019] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:34.923] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:34.924] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.231] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.232] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.470] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.471] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.715] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.716] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.980] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:35.982] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:36.232] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:36.233] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:36.567] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:05:36.568] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:04.707] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:04.709] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:05.066] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:05.067] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:06.138] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:08:06.139] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:11:19.043] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:11:19.045] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:11:19.547] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 12:11:19.548] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:38.957] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:38.959] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:39.723] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:39.725] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:40.373] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:40.375] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:40.965] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:52:40.967] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:01.578] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:01.579] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:11.652] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:11.653] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:11.814] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:11.815] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:53:21.863] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:\\lagunas\data\Formats\Ikonos2003_Atyrau\ORIGINAL\po_10888_pan_0000000.tif: Can not read TIFF directory count
+[2017-08-30 13:53:21.864] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 509200648
+[2017-08-30 13:53:21.864] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Ikonos2003_Atyrau\ORIGINAL\po_10888_pan_0000000.tif)
+[2017-08-30 13:54:08.919] [rotate_logger] [error] GDAL ERROR: Unable to open \\lagunas\data\Formats\SPOT\Z55\spot_GLENARIFF.img, it has zero usable bands.
+[2017-08-30 13:54:08.919] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\SPOT\Z55\spot_GLENARIFF.img)
+[2017-08-30 13:54:49.291] [rotate_logger] [error] GDAL ERROR: Unable to open \\lagunas\data\Formats\SPOT\Z55\spot_CONARGO.img, it has zero usable bands.
+[2017-08-30 13:54:49.291] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\SPOT\Z55\spot_CONARGO.img)
+[2017-08-30 13:54:50.753] [rotate_logger] [error] GDAL ERROR: Unable to open \\lagunas\data\Formats\SPOT\Z55\spot_GINDOONO.img, it has zero usable bands.
+[2017-08-30 13:54:50.754] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\SPOT\Z55\spot_GINDOONO.img)
+[2017-08-30 13:55:21.130] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.132] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.181] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.182] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.228] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.229] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.275] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.276] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.339] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:21.341] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:55:25.084] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(1300), totalDatasetSkipped(33), 		totalDatasetUpdated(1253), totalDatasetFailed(14).
+[2017-08-30 13:55:33.286] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\ADS\L1_Batemans_10cm_2010_04_09_00_31_RGBN00A_002_0_1N.tif' not recognised as a supported file format.
+
+[2017-08-30 13:55:33.287] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\ADS\L1_Batemans_10cm_2010_04_09_00_31_RGBN00A_002_0_1N.tif)
+[2017-08-30 13:55:47.357] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1001\TPIZ0101\TPIZ0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 13:55:47.358] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1001\TPIZ0101\TPIZ0101.IMG)
+[2017-08-30 13:55:47.528] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1030\TPUS0101\TPUS0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 13:55:47.528] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1030\TPUS0101\TPUS0101.IMG)
+[2017-08-30 13:55:47.768] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0101.IMG' not recognised as a supported file format.
+
+[2017-08-30 13:55:47.769] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0101.IMG)
+[2017-08-30 13:55:47.860] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0102.IMG' not recognised as a supported file format.
+
+[2017-08-30 13:55:47.861] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\adrg\1613\JAUS0101\JAUS0102.IMG)
+[2017-08-30 13:55:48.987] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc04.c.img' not recognised as a supported file format.
+
+[2017-08-30 13:55:48.988] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc04.c.img)
+[2017-08-30 13:55:49.042] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc05.c.img' not recognised as a supported file format.
+
+[2017-08-30 13:55:49.043] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\avaris\f970619t01p02_r02_sc05.c.img)
+[2017-08-30 13:56:10.303] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\junk\junkimg.img' not recognised as a supported file format.
+
+[2017-08-30 13:56:10.303] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\junk\junkimg.img)
+[2017-08-30 13:56:10.354] [rotate_logger] [error] GDAL ERROR: `\\lagunas\data\Formats\Helios\RasterFormats\junk\junktif.tif' not recognised as a supported file format.
+
+[2017-08-30 13:56:10.354] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Helios\RasterFormats\junk\junktif.tif)
+[2017-08-30 13:57:54.374] [rotate_logger] [error] GDAL ERROR: \\lagunas\data\Formats\Worldview2\052310429160_01\052310429160_01_P001_PAN\10JAN19161609-P1BS-052310429160_01_P001.TIF:Failed to allocate memory for to read TIFF directory (0 elements of 12 bytes each)
+[2017-08-30 13:57:54.374] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 991653864
+[2017-08-30 13:57:54.375] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Worldview2\052310429160_01\052310429160_01_P001_PAN\10JAN19161609-P1BS-052310429160_01_P001.TIF)
+[2017-08-30 13:59:06.175] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:\\lagunas\data\Formats\Ikonos2003_Atyrau\ORIGINAL\po_10888_pan_0000000.tif: Can not read TIFF directory count
+[2017-08-30 13:59:06.175] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 509200648
+[2017-08-30 13:59:06.176] [rotate_logger] [error] Problem occurs when opening dataset at (\\lagunas\data\Formats\Ikonos2003_Atyrau\ORIGINAL\po_10888_pan_0000000.tif)
+[2017-08-30 13:59:43.576] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:59:43.577] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:59:45.452] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-30 13:59:45.454] [rotate_logger] [error] GDAL ERROR: No PROJ.4 translation for source SRS, coordinate
+transformation initialization has failed.
+[2017-08-31 08:56:40.058] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-31 08:59:07.043] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-08-31 08:59:07.043] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-08-31 08:59:52.087] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(0), 		totalDatasetUpdated(15), totalDatasetFailed(0).
+[2017-08-31 09:00:00.630] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 09:02:00.744] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 09:04:00.743] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 09:06:00.743] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 09:08:00.745] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 09:57:36.848] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-31 09:59:06.176] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-08-31 09:59:06.176] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-08-31 09:59:49.594] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(0), 		totalDatasetUpdated(15), totalDatasetFailed(0).
+[2017-08-31 10:00:00.891] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:06:06.892] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-08-31 10:09:05.990] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-08-31 10:09:05.990] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-08-31 10:09:49.956] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(0), 		totalDatasetUpdated(15), totalDatasetFailed(0).
+[2017-08-31 10:10:00.958] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:12:00.948] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:14:00.953] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:16:00.947] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:18:00.951] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:20:00.955] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:22:00.962] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:24:00.963] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:26:00.968] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:28:00.973] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:30:00.975] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-08-31 10:32:00.972] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(15), 		totalDatasetUpdated(0), totalDatasetFailed(0).
+[2017-09-11 11:53:14.325] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-09-11 11:56:47.376] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-09-11 11:57:36.152] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-09-11 12:04:59.684] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-09-11 12:06:03.780] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-09-11 12:06:03.780] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-09-11 12:06:47.802] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(0), 		totalDatasetUpdated(15), totalDatasetFailed(0).
+[2017-09-11 12:24:44.757] [rotate_logger] [info] Connected to the database successfully.
+
+[2017-09-11 12:24:44.913] [rotate_logger] [error] GDAL ERROR: TIFFFetchDirectory:Sanity check on directory count failed, this is probably not a valid IFD offset
+[2017-09-11 12:24:44.913] [rotate_logger] [error] GDAL ERROR: TIFFReadDirectory:Failed to read directory at offset 6036627922
+[2017-09-11 12:25:49.041] [rotate_logger] [info] Updating dataset finishied with totalDatasetScanned(15), totalDatasetSkipped(0), 		totalDatasetUpdated(15), totalDatasetFailed(0).

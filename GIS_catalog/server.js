@@ -1,11 +1,14 @@
 ﻿var express = require('express')
 var app = express()
+var cors = require('cors')
 var MongoClient = require('mongodb').MongoClient, assert = require('assert');
 var bodyParser = require('body-parser');
 var ObjectID = require('mongodb').ObjectID;
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+app.use(cors())
+app.options('*', cors())
 
 //TODO: Not sure post with query parameter in request body is correct way to do it.
 app.post('/datasets/metadata', function (req, res) {

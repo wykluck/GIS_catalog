@@ -31,7 +31,10 @@ readConfig.then((configObj) => {
     logFilePath += path.sep + "UpdateDataset.log";
 
     gdal_binding.Init(logFilePath, gdalDataPath);
-    var job = new CronJob({
+    console.log("Started to update all dataset information.\n");
+    datasetCrawler.updateAllDatasetInfo(configObj);
+    console.log("Finished updating all dataset information.\n");
+    /*var job = new CronJob({
         cronTime: configObj.scanCronPeriod,
         onTick: function () {
             console.log("Started to update all dataset information.\n");
@@ -42,6 +45,7 @@ readConfig.then((configObj) => {
         timeZone: 'America/Los_Angeles'
     });
     job.start();
+    */
 }).catch((err) => {
     console.log(err);
 });;
